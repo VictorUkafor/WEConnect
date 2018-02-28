@@ -16,11 +16,36 @@ body {
 	margin-left:3%;
 }
 
-.sign-ins{
+.signin-form{
+	margin-left: 23%;
 }
 
+.signin-field{
+	border: 2px solid #0b85c2;
+	border-radius: 0px;
+}
+
+.signin-button{
+	border-radius: 0px;
+	border: 2px solid #0b85c2;
+	background-color: #0b85c2;
+	color: #fff;
+	font-family:candara;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.signin-button:hover{
+	border: 2px solid #0b85c2;
+	background-color: #f4f4f4;
+	color: #0b85c2;
+}
+
+
 .sign-ins ul{
-	margin-left: 60%;
+	margin-top: 10px;
+	margin-bottom: 25px;
+	margin-left: 70%;
 }
 
 .sign-ins li{
