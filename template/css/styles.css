@@ -221,3 +221,28 @@ body {
 	text-decoration: underline;
 }
 
+
+
+.view-more{
+	border: 2px solid #0b85c2;
+	border-radius: 0px;
+	padding-left: 15%;
+    padding-right: 15%;
+    margin-left: 27%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+ 	background-color: #0b85c2;
+	color: #fff;
+	font-family:corbel;
+	font-weight: bold;
+	font-size:13px;
+}
+
+.view-more:hover{
+	border: 2px solid #0b85c2;
+	color: #0b85c2;
+	text-decoration: underline;
+	background-color: #f4f4f4;
+}
+
+
