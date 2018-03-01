@@ -9,7 +9,7 @@ body {
 .head{
 	
 }
-
+ /* ================= header section ================*/
 .logo{
 	margin-top: 30px;
 	margin-bottom: 10px;
@@ -127,6 +127,8 @@ body {
 }
 
 
+/*==================== carousel section ====================*/
+
 .carousel-control {
     color:#0b85c2;
 	opacity:0.9;
@@ -148,6 +150,9 @@ body {
 .carousel-indicators li {
     border: 1px solid #0b85c2;
 }
+
+
+/*======================== slideshows section =====================*/
 
 .slideshow{
 	margin-bottom: 20px;
