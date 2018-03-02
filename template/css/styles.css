@@ -121,7 +121,7 @@ body {
 	color:#0b85c2;
 }
 
- #home .nav1, #register .nav3, #listing .nav2, #my-businesses .nav4{
+ #home .nav1, #register .nav3, #listing .nav2, #my-businesses .nav4, #account .nav5{
 	background-color:#0a6ea0;
 	color:white;
 }
@@ -470,7 +470,7 @@ body {
 	margin-top: 30px;
 }
 
-.signin-button2{
+.signin-button2, .feat button{
 	width: 100%;
 	border-radius: 0px;
 	border: 2px solid #0b85c2;
@@ -481,7 +481,7 @@ body {
 	font-weight:bold;
 }
 
-.signin-button2:hover{
+.signin-button2:hover, .feat button:hover{
 	border: 2px solid #0b85c2;
 	background-color: #f4f4f4;
 	color: #0b85c2;
@@ -613,4 +613,41 @@ body {
 	margin-left: 0.9%;
 }
 
+}
+
+
+.feat{
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px dotted #0b85c2;
+}
+
+.profile{
+	margin-top: 50px;
+	margin-left: 5%;
+	margin-bottom: 30px;
+}
+
+.profile img{
+	border: 1px dotted #0b85c2;
+	margin-bottom: 30px;
+	margin-left: 40%;
+}
+
+.feat h1{
+	font-family: candara;
+	font-size: 22px;
+	font-weight: bold;
+	color: #0b85c2;
+}
+
+.feat p{
+	font-family: candara;
+	font-size: 20px;
+	color: #000;
 }
