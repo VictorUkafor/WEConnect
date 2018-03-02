@@ -651,3 +651,29 @@ body {
 	font-size: 20px;
 	color: #000;
 }
+
+/*          ========== account page*/
+@media screen and (min-width: 1280px){
+
+.profile{
+	margin-left: 2%;
+	
+}
+
+}
+
+
+@media screen and (max-width: 1440px){
+
+
+.profile{
+	margin-left: 0%;
+}
+
+
+.profile img{
+	margin-left: -2%;
+}
+
+
+}
