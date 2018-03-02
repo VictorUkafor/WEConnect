@@ -516,6 +516,7 @@ body {
 
 
 
+/*=======================listing page===============*/
 .search-sort{
 	margin-top: 20px;
 	margin-bottom: 30px;
@@ -565,4 +566,51 @@ body {
 	font-weight:bold;
 	width: 18%;
 	margin-left: -1%;
+}
+
+
+
+/*--------screens=========*/
+
+@media screen and (max-width: 900px){
+
+.search-sort{
+	margin-bottom: 10px;
+	width:100%;
+}
+
+
+.filter-group, .search-group{
+	width:100%;
+	margin-left: 0%;
+}
+
+.search-form, .filter-form{
+	margin-bottom: 50px;
+}
+
+.search-button, .filter-button{
+	width: 100%;
+	margin-left: 0%;
+}
+
+
+}
+
+@media screen and (min-width: 1280px){
+
+.search-sort{
+	width: 99.3%;
+	margin-left: 0.5%;
+}
+
+}
+
+@media screen and (min-width: 1440px){
+
+.search-sort{
+	width: 98%;
+	margin-left: 0.9%;
+}
+
 }
