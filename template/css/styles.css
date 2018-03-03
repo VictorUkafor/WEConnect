@@ -710,6 +710,7 @@ body {
 	margin-top: 10px;
 	padding: 10px;
 	border-radius: 5px;
+	padding-bottom: 20px;
 	border: 1px dotted #0b85c2;
 }
 
@@ -733,6 +734,24 @@ body {
 	padding-left: 5%;
 }
 
+.feat2 h3{
+	padding-top: 15px;
+	font-family: candara;
+	font-size: 17px;
+	font-weight: bold;
+	color: #000;
+	padding-left: 5%;
+}
+
+.adrev h2{
+	font-family: candara;
+	font-size: 20px;
+	font-weight: bold;
+	color: #0b85c2;
+	padding-left: 3%;
+	padding-bottom: -20px;
+}
+
 .feat2 p{
 	font-family: candara;
 	font-size: 18px;
@@ -740,6 +759,20 @@ body {
 	padding-left: 2%;
 	padding-right: 2%;
 	line-height: 30px;
+}
+
+.review-text{
+	border: 2px solid #0b85c2;
+	border-radius: 3px;
+}
+
+.reviews p{
+	font-family: candara;
+	font-size: 16px;
+	color: #000;
+	padding-left: 2%;
+	padding-right: 2%;
+	line-height: 23px;
 }
 
 
