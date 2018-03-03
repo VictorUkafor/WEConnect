@@ -481,7 +481,8 @@ body {
 	font-weight:bold;
 }
 
-.signin-button2:hover,.feat button:hover,.feat2 button:hover{
+.signin-button2:hover,.feat button:hover,.feat2 button:hover,
+.search-button:hover, .filter-button:hover{
 	border: 2px solid #0b85c2;
 	background-color: #f4f4f4;
 	color: #0b85c2;
