@@ -9,6 +9,7 @@ body {
 .head{
 	
 }
+
  /* ================= header section ================*/
 .logo{
 	margin-top: 30px;
@@ -78,6 +79,8 @@ body {
 	text-decoration: underline; 
 }
 
+
+/*=============== navigation bar ====================*/
 
 
 .navi{
@@ -307,7 +310,7 @@ body {
 	text-decoration: underline;
 }
 
-/*=======================medium screen ====== index page=================================*/
+/*======================= screen responsiveness for index page =================================*/
 
 @media screen and (min-width:1024px){
 
@@ -362,7 +365,6 @@ body {
 
 }
 
-/*========================small screen ====index page ==========================*/
 
 @media screen and (max-width: 900px){
 
@@ -504,7 +506,7 @@ body {
 }
 
 
-/*=================== small screens =====signup page=========*/
+/*=================== Screen responsiveness for sigup page =========*/
 
 @media screen and (max-width: 900px){
 
@@ -517,7 +519,7 @@ body {
 
 
 
-/*=======================listing page===============*/
+/*======================= listing page ===============*/
 .search-sort{
 	margin-top: 20px;
 	margin-bottom: 30px;
@@ -571,7 +573,7 @@ body {
 
 
 
-/*--------screens=========*/
+/*================= screen responsiveness for listing page=========*/
 
 @media screen and (max-width: 900px){
 
@@ -655,7 +657,10 @@ body {
 	color: #000;
 }
 
-/*          ========== account page*/
+
+
+
+/* ========== account page ========================*/
 
 @media screen and (max-width: 900px){
 
