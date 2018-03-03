@@ -340,8 +340,7 @@ body {
 
 
 .thumbnail-single>a>img{
-	width:107%;
-	margin: -10px;
+	width:106.8%;                                                                                                                                                                                                                                                                                                                                                                      
 	margin-bottom: 10px;
 	
 }
@@ -349,8 +348,21 @@ body {
 .thumbnail-single>a>img:hover{
 	opacity: 0.7;
 	width:97%;
+}                                             
+.thumbnail-single p {                                          
+   font-size:16px;
+	line-height:21px;
+	color:black;
+	width:92%;
+	margin-left:4%;
+	margin-top:5px;
+}
 
-	
+.thumbnail-single h1{
+	padding-left: 7%;                                                                                                                                                                                                                                                                                                         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffftttffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffext-align:center;
+	width:86%;
+	font-size:18px;
+	line-height:22px;                                 
 }
 
 }
