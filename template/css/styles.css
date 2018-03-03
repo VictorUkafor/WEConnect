@@ -195,9 +195,6 @@ body {
 
 .thumbnail-single>a>img:hover{
 	opacity: 0.7;
-	width:100%;
-	margin-left: 1%;
-	margin-top: 3px;
 }
 
 .thumbnail-single a{
@@ -338,17 +335,16 @@ body {
 	margin-left: 40%;
 }
 
+.thumbnail-single{
+	margin-bottom: 30px;
+}
 
 .thumbnail-single>a>img{
 	width:106.8%;                                                                                                                                                                                                                                                                                                                                                                      
 	margin-bottom: 10px;
 	
 }
-
-.thumbnail-single>a>img:hover{
-	opacity: 0.7;
-	width:97%;
-}                                             
+                                           
 .thumbnail-single p {                                          
    font-size:16px;
 	line-height:21px;
@@ -615,8 +611,8 @@ body {
 @media screen and (min-width: 1280px){
 
 .search-sort{
-	width: 99.3%;
-	margin-left: 0.5%;
+	width: 98.5%;
+	margin-left: 0.7%;
 }
 
 }
