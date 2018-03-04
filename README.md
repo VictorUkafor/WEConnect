@@ -1,14 +1,14 @@
-#Project Title
+# Project Title #
 
 WEConnect - WEConnect is an app that connect business owners and users. It provides business owner to advertise their business so that users can write reviews on them.
 
 
-#Getting Started
+# Getting Started #
 
 To get started with the project, download the ZIP file or clone it to your local machine.
 
 
-#Installing and Running
+# Installing and Running #
 
 This project contains three directories;
 
@@ -19,13 +19,13 @@ c.  client - this will contain your front-end implementation in ReactJS and Redu
 To get started open any of the this folders and the README.md file
 
 
-#Author
+# Author #
 
 Victor Ukafor 
 victorukafor@gmail.com
 
 
-#Acknowledgement
+# Acknowledgement #
 
 Andela Talent Team
 
