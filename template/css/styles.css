@@ -383,7 +383,7 @@ body {
 }
 
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 500px){
 
 .logo{
 	margin-top: 20px;
@@ -532,7 +532,7 @@ body {
 
 /*=================== Screen responsiveness for sigup page =========*/
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 500px){
 
 .signup-form{
 	margin-left: 0%;
@@ -599,7 +599,7 @@ body {
 
 /*================= screen responsiveness for listing page=========*/
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 500px){
 
 .search-sort{
 	margin-bottom: 10px;
@@ -686,7 +686,7 @@ body {
 
 /* ========== account page ========================*/
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 500px){
 
 
 
@@ -808,7 +808,7 @@ body {
 
 /*==============screen responsive============single business============*/
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 500px){
 
 .profile2{
 	margin-left: 0%;
