@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => { res.send({ message: 'Welcome to the WEConnect app!' }); });
 
-  app.listen(5000, () => {
-      console.log('listening on port 5000:. . .');
+  app.listen(7000, () => {
+      console.log('listening on port 7000:. . .');
   });
 
 export default app;
