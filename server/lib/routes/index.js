@@ -1,6 +1,8 @@
 import express from 'express';
-const apiRouter = express.Router(); 
+
+const apiRouter = express.Router();
 import UsersController from '../controllers/users';
+
 const usersController = new UsersController(apiRouter);
 
 export default (app) => {
