@@ -15,6 +15,7 @@ export default class AllController {
     this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
     this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
+    this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
   }
 
   postUser(req, res) {
@@ -227,6 +228,17 @@ export default class AllController {
     if(!business){
       res.status(500).send({ message: 'Business can not be found!' });
     }else{ res.status(200).send({ message: business }); }
+    
+    }
+
+
+    getUserBusinesses(req, res) {
+    const userId = parseInt(req.params.userId, 10);
+    const Businesses = this.businesses.filter(b => b.userId === userId);
+    
+    if(!Businesses || Businesses.length === 0){
+      res.status(500).send({ message: 'You have no business!' });
+    }else{ res.status(200).send({ message: Businesses }); }
     
     }
 
