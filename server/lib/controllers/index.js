@@ -13,12 +13,13 @@ export default class AllController {
     this.router.post('/auth/login', this.loginUser.bind(this));
     this.router.post('/:userId/businesses', this.postBusiness.bind(this));
     this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
+    this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
+    this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
   }
 
   postUser(req, res) {
     const userInfo = req.body;
     const errors = [];
-    //const users = service.getUsers();
     const reqEmail = this.users.find(u => u.email === userInfo.email);
 
     let id = '';
@@ -190,6 +191,45 @@ export default class AllController {
 
       }
     }
+
+
+    removeBusiness(req, res) {
+    const userId = parseInt(req.params.userId, 10);
+    const user = this.users.find(user => user.id === userId);
+    const businessId = parseInt(req.params.businessId, 10);
+    const business = this.businesses.find(b => b.id === businessId);
+    
+    if(!user){
+      res.status(500).send({ 
+        message: 'Only business owners can remove their businesses!'
+         });
+    }else{
+
+        if(business && business.userId === userId){
+
+        this.businesses = this.businesses.find(b => b.id !== businessId);
+
+        return res.status(201).send({
+          message: 'Your business has been removed successfully'
+        });
+
+        }else{ res.status(404).send({ message: 'Business can not be found!' }); }
+
+
+      }
+    }
+
+
+    getBusiness(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const business = this.businesses.find(b => b.id === businessId);
+    
+    if(!business){
+      res.status(500).send({ message: 'Business can not be found!' });
+    }else{ res.status(200).send({ message: business }); }
+    
+    }
+
 
 }
 
