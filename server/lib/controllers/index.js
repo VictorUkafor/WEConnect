@@ -18,7 +18,9 @@ export default class AllController {
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
     this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
     this.router.get('/businesses', this.getAllBusinesses.bind(this));
-    this.router.post('/:userId/businesses/:businessId/review', this.postReview.bind(this));
+    this.router.post('/:userId/businesses/:businessId/reviews', this.postReview.bind(this));
+    this.router.get('/businesses/:businessId/reviews', this.getReviews.bind(this));
+
   }
 
   postUser(req, res) {
@@ -297,6 +299,24 @@ export default class AllController {
   }
 
 
+    getReviews(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const business = this.businesses.find(b => b.id === businessId);
+    const singleBusinessReviews = this.reviews.filter(r => r.businessId === businessId);
+
+    if(!business){
+      res.status(404).send({ message: 'Business can not be found!'
+         });
+    }else if(!singleBusinessReviews){
+      res.status(404).send({ message: 'This business has no reviews!'
+         });
+    }else{ 
+      res.status(201).send({
+          message: singleBusinessReviews.reverse()
+        });
+    }
+
+}
 
 }
 
