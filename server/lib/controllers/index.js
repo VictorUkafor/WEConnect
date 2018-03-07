@@ -16,6 +16,7 @@ export default class AllController {
     this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
     this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
+    this.router.get('/businesses', this.getAllBusinesses.bind(this));
   }
 
   postUser(req, res) {
@@ -208,9 +209,9 @@ export default class AllController {
 
         if(business && business.userId === userId){
 
-        this.businesses = this.businesses.find(b => b.id !== businessId);
+        this.businesses = delete this.businesses[business];
 
-        return res.status(201).send({
+        return res.status(204).send({
           message: 'Your business has been removed successfully'
         });
 
@@ -239,6 +240,14 @@ export default class AllController {
     if(!Businesses || Businesses.length === 0){
       res.status(500).send({ message: 'You have no business!' });
     }else{ res.status(200).send({ message: Businesses }); }
+    
+    }
+
+
+    getAllBusinesses(req, res) {    
+    if(this.businesses.length === 0){
+      res.status(500).send({ message: 'There are no businesses yet!' });
+    }else{ res.status(200).send({ message: this.businesses }); }
     
     }
 
