@@ -209,10 +209,10 @@ export default class AllController {
 
         if(business && business.userId === userId){
 
-        this.businesses = delete this.businesses[business];
+       this.businesses = this.businesses.filter(b => b.id !== businessId);
 
-        return res.status(204).send({
-          message: 'Your business has been removed successfully'
+        res.status(200).send({
+          message: ['Your business has been removed successfully', this.businesses]
         });
 
         }else{ res.status(404).send({ message: 'Business can not be found!' }); }
