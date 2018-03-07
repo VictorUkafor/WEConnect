@@ -1,32 +1,31 @@
 import uuid from 'uuid';
-import Service from '../services/index';
-
-const service = new Service();
-
 
 export default class AllController {
   constructor(router) {
     this.router = router;
     this.registerRoutes();
+    this.users = [];
+    this.businesses = [];
   }
 
   registerRoutes() {
     this.router.post('/auth/signup', this.postUser.bind(this));
     this.router.post('/auth/login', this.loginUser.bind(this));
     this.router.post('/:userId/businesses', this.postBusiness.bind(this));
+    this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
   }
 
   postUser(req, res) {
     const userInfo = req.body;
     const errors = [];
-    const users = service.getUsers();
-    const reqEmail = users.find(u => u.email === userInfo.email);
+    //const users = service.getUsers();
+    const reqEmail = this.users.find(u => u.email === userInfo.email);
 
     let id = '';
-    if(users.length === 0){ 
+    if(this.users.length === 0){ 
       id = 1; }
       else{
-          id = users[0].id + 1;
+          id = this.users[0].id + 1;
         }
 
     const userFields = {
@@ -61,10 +60,10 @@ export default class AllController {
         const user = {
           id, firstName, lastName, email, password,
         };
-
-        service.addUser(user);
+        
+        this.users.push(user);
         return res.status(201).send({
-          message: ['A new user has been added successfully', users.reverse()]
+          message: ['A new user has been added successfully', this.users.reverse()]
         });
       }
     }
@@ -73,8 +72,7 @@ export default class AllController {
 
   loginUser(req, res){
     const userInfo = req.body;
-    const users = service.getUsers();
-    const validate = users.find(user => user.email === userInfo.email);
+    const validate = this.users.find(user => user.email === userInfo.email);
 
     if(Object.keys(userInfo).length !== 2) {
       res.status(500).send({ message: 'All fields are required!' });
@@ -94,16 +92,14 @@ export default class AllController {
   postBusiness(req, res) {
     const businessInfo = req.body;
     const errors = [];
-    const users = service.getUsers();
-    const businesses = service.getBusinesses();
     const userId = parseInt(req.params.userId, 10);
-    const user = users.find(user => user.id === userId);
+    const user = this.users.find(user => user.id === userId);
 
     let id = '';
-    if(businesses.length === 0){ 
+    if(this.businesses.length === 0){ 
       id = 1; }
       else{
-          id = businesses[0].id + 1;
+          id = this.businesses[0].id + 1;
         }
     
     if(!user){
@@ -142,14 +138,58 @@ export default class AllController {
           productsOrServices, location, address
         };
 
-        service.addBusiness(business);
+        this.businesses.push(business);
         return res.status(201).send({
-          message: ['A new business has been added successfully', businesses.reverse()]
+          message: ['A new business has been added successfully', this.businesses.reverse()]
         });
       }
     }
   }
 }
+
+
+  updateBusiness(req, res) {
+    const businessInfo = req.body;
+    const userId = parseInt(req.params.userId, 10);
+    const user = this.users.find(user => user.id === userId);
+    const businessId = parseInt(req.params.businessId, 10);
+    const business = this.businesses.find(b => b.id === businessId);
+    
+    if(!user){
+      res.status(500).send({ 
+        message: 'Only business owners can update their businesses!'
+         });
+    }else{
+
+        if(business && business.userId === userId){
+
+        business.businessName = businessInfo.businessName ? 
+        businessInfo.businessName : business.businessName;
+
+        business.description = businessInfo.description ?
+        businessInfo.description : business.description;
+
+        business.categories = businessInfo.categories ?
+        businessInfo.categories : business.categories;
+
+        business.productsOrServices = businessInfo.productsOrServices ?
+        businessInfo.productsOrServices : business.businessName;
+
+        business.location = businessInfo.location ?
+        businessInfo.location : business.location;
+
+        business.address = businessInfo.address ?
+        businessInfo.address : business.address;
+
+        return res.status(201).send({
+          message: ['Your business has been updated successfully', this.businesses.reverse()]
+        });
+
+        }else{ res.status(404).send({ message: 'Business can not be found!' }); }
+
+
+      }
+    }
 
 }
 
