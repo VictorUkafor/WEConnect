@@ -6,6 +6,7 @@ export default class AllController {
     this.registerRoutes();
     this.users = [];
     this.businesses = [];
+    this.reviews = [];
   }
 
   registerRoutes() {
@@ -17,6 +18,7 @@ export default class AllController {
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
     this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
     this.router.get('/businesses', this.getAllBusinesses.bind(this));
+    this.router.post('/:userId/businesses/:businessId/review', this.postReview.bind(this));
   }
 
   postUser(req, res) {
@@ -28,7 +30,7 @@ export default class AllController {
     if(this.users.length === 0){ 
       id = 1; }
       else{
-          id = this.users[0].id + 1;
+          id = this.users[this.users.length - 1].id + 1;
         }
 
     const userFields = {
@@ -102,7 +104,7 @@ export default class AllController {
     if(this.businesses.length === 0){ 
       id = 1; }
       else{
-          id = this.businesses[0].id + 1;
+          id = this.businesses[this.businesses.length - 1].id + 1;
         }
     
     if(!user){
@@ -188,7 +190,7 @@ export default class AllController {
           message: ['Your business has been updated successfully', this.businesses.reverse()]
         });
 
-        }else{ res.status(404).send({ message: 'Business can not be found!' }); }
+        }else{ res.status(404).send({  message: 'Business can not be found!' }); }
 
 
       }
@@ -250,6 +252,50 @@ export default class AllController {
     }else{ res.status(200).send({ message: this.businesses }); }
     
     }
+
+
+    postReview(req, res) {
+    const reviewInfo = req.body;
+    const userId = parseInt(req.params.userId, 10);
+    const businessId = parseInt(req.params.businessId, 10);
+    const user = this.users.find(user => user.id === userId);
+    const business = this.businesses.find(b => b.id === businessId);
+
+    let id = '';
+    if(this.reviews.length === 0){ 
+      id = 1; }
+      else{
+          id = this.reviews[this.reviews.length - 1].id + 1;
+        }
+    
+    if(!user){
+      res.status(500).send({ 
+        message: 'Only registered users can add a review!'
+         });
+    }else if(!business){
+      res.status(404).send({ 
+        message: 'Business can not be found!'
+         });
+    }else{
+        
+    if (Object.keys(reviewInfo).length === 0) {
+      res.status(500).send({ message: 'Please add your comment!'
+      });
+    } else {
+      
+        const reviewBody = reviewInfo.reviewBody;
+        const reviewer = user.firstName + " " + user.lastName;
+        const review = { id, businessId, reviewer, reviewBody, };
+
+        this.reviews.push(review);
+        const singleBusinessReview = this.reviews.filter(r => r.businessId === businessId);
+        return res.status(201).send({
+          message: ['Review added successfully', singleBusinessReview.reverse()]
+        });
+      }
+    }
+  }
+
 
 
 }
