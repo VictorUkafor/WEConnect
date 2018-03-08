@@ -214,8 +214,8 @@ describe('WEConnect API Routes', () => {
   
   }); 
 
-
-  describe('POST /api/v1/:userId/businesses', () => {
+  // Testing for 'POST /api/v1/<userId>/businesses'
+  describe('POST /api/v1/<userId>/businesses', () => {
     
     // Add a new business
     it('Adds a new business', (done) => {
@@ -282,8 +282,8 @@ describe('WEConnect API Routes', () => {
   });
 
 
-  // Testing for 'PUT /api/v1/userId/businesses/businessId'
-  describe('PUT /api/v1/:userId/businesses/:businessId', () => {
+  // Testing for 'PUT /api/v1/<userId>/businesses/<businessId>'
+  describe('PUT /api/v1/<userId>/businesses/<businessId>', () => {
 
   	// Updates a business
     it('Updates a business', (done) => {
@@ -319,7 +319,7 @@ describe('WEConnect API Routes', () => {
         });
     }); 
 
-  	// Business can not b found
+  	// Business can not be found
     it('Business can not be found', (done) => {
       request.put('/api/v1/1/businesses/3')
     	.send({
@@ -338,8 +338,8 @@ describe('WEConnect API Routes', () => {
 
   });
 
-
-  describe('DELETE /api/v1/:userId/businesses/:businessId', () => {
+  // Testing for 'DELETE /api/v1/<userId>/businesses/<businessId>'
+  describe('DELETE /api/v1/<userId>/businesses/<businessId>', () => {
 
   	// Only business owners can remove their businesses
     it('Only business owners can remove their businesses', (done) => {
@@ -371,7 +371,7 @@ describe('WEConnect API Routes', () => {
   });
 
   // Testing for GET /api/v1/businesses
-  describe('GET /api/v1/businesses/:businessId', () => {
+  describe('GET /api/v1/businesses/<businessId>', () => {
 
   	// Business can not be found
     it('Business can not be found', (done) => {
@@ -394,8 +394,8 @@ describe('WEConnect API Routes', () => {
   });
 
 
-  // Testing for GET /api/v1/:userId/businesses
-  describe('GET /api/v1/:userId/businesses', () => {
+  // Testing for GET /api/v1/<userId>/businesses
+  describe('GET /api/v1/<userId>/businesses', () => {
 
   	// Gets all businesses from a user 
     it('Gets all businesses from a user', (done) => {
@@ -409,6 +409,29 @@ describe('WEConnect API Routes', () => {
     // User does not have any businesses 
     it('User does not have any businesses', (done) => {
       request.get('/api/v1/2/businesses')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  });
+
+  // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses', () => {
+
+    // Gets all businesses
+    it('Gets all businesses', (done) => {
+      request.get('/api/v1/businesses')
+        .expect(200)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // Businesses can not be found
+    it('Businesses can not be found', (done) => {
+      request.get('/api/v1/business')
         .expect(404)
         .end((err, res) => {
           done(err);
