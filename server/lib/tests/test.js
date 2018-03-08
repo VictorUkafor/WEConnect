@@ -441,6 +441,31 @@ describe('WEConnect API Routes', () => {
   });
 
 
+  // Testing for GET /api/v1/businesses?location=<location>
+  describe('GET /api/v1/businesses?location=<location>', () => {
+
+    // Gets all businesses filtered by location
+    it('Gets all businesses filtered by location', (done) => {
+      request.get('/api/v1/businesses?location=Kano')
+        .expect(200)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this location', (done) => {
+      request.get('/api/v1/businesses?location=Lagos')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  });
+
+
+
 
 
 
