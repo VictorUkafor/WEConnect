@@ -32,7 +32,7 @@ export default class AllController {
     if(this.users.length === 0){ 
       id = 1; }
       else{
-          id = this.users[this.users.length - 1].id + 1;
+          id = this.users[0].id + 1;
         }
 
     const userFields = {
@@ -106,7 +106,7 @@ export default class AllController {
     if(this.businesses.length === 0){ 
       id = 1; }
       else{
-          id = this.businesses[this.businesses.length - 1].id + 1;
+          id = this.businesses[0].id + 1;
         }
     
     if(!user){
