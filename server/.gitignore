@@ -1,5 +1,5 @@
 node_modules/
-dist/
+dist
 .babelrc
 eslintrc
 ../npm-debug.log
