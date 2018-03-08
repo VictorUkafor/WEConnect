@@ -212,10 +212,60 @@ describe('WEConnect API Routes', () => {
         });
     });            
   
+  }); 
 
 
-  });  
+  describe('POST /api/v1/:userId/businesses', () => {
+    
+    // Add a new business
+    it('adds a new business', (done) => {
+    	request.post('/api/v1/1/businesses')
+    	.send({
+    		businessName: 'VickCode Technologies',
+  	        description: 'Web provides digital solutions',
+  	        categories: ['web design', 'web development'],
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Lagos',
+  		    address: 'Lagos',
+  		})
+  		.expect(201)
+        .end((err, res) => {
+          done(err);
+        });
+    });
 
+    // These fields are required
+    it('these fields are required', (done) => {
+    	request.post('/api/v1/1/businesses')
+    	.send({
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Lagos',
+  		})
+  		.expect(500)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // Only registered users can add a business
+    it('only authenticated users can register a business', (done) => {
+    	request.post('/api/v1/2/businesses')
+    	.send({
+    		businessName: 'VickCode Technologies',
+  	        description: 'Web provides digital solutions',
+  	        categories: ['web design', 'web development'],
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Lagos',
+  		    address: 'Lagos',
+  		})
+  		.expect(500)
+        .end((err, res) => {
+          done(err);
+        });
+    })    
+
+
+  });   
 
 
 
