@@ -112,7 +112,7 @@ export default class AllController {
     if (Object.keys(userInfo).length !== 2) {
       res.status(500).send({ message: 'All fields are required!' });
     } else if (validate && validate.password === userInfo.password) {
-      res.status(200).send({ message: `Welcome! ${validate.firstName} ${validate.lastName}` });
+      res.status(201).send({ message: `Welcome! ${validate.firstName} ${validate.lastName}` });
     } else {
       res.status(404).send({ message: 'Invalid email or password!' });
     }

@@ -7,7 +7,8 @@
     "start": "nodemon lib/server.js --exec babel-node --presets airbnb,stage-2",
     "build": "babel lib -d dist --presets airbnb,stage-2",
     "serve": "node dist/server.js",
-   "eslint": "./node_modules/.bin/eslint --fix ./lib"
+    "eslint": "./node_modules/.bin/eslint --fix ./lib",
+    "test": "mocha ./dist/tests"
   },
   "author": "Victor Ukafor",
   "license": "ISC",
