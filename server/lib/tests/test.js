@@ -139,7 +139,7 @@ describe('WEConnect API Routes', () => {
   			done(err);
   		});
   	});
-        
+    	    
         // User has already been registered
   	  	it('The user with this email has already been registered', (done) => {
   		request.post('/api/v1/auth/signup')
@@ -227,6 +227,21 @@ describe('WEConnect API Routes', () => {
             productsOrServices: 'web developments, web designs',
   	        location: 'Lagos',
   		    address: 'Lagos',
+  		})
+  		.expect(201)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+    	request.post('/api/v1/1/businesses')
+    	.send({
+    		businessName: 'Smart Medicals',
+  	        description: 'Web drugs',
+  	        categories: ['drugs'],
+  	        location: 'Kano',
   		})
   		.expect(201)
         .end((err, res) => {
@@ -337,7 +352,7 @@ describe('WEConnect API Routes', () => {
 
   	// Business can not be found
     it('Business can not be found', (done) => {
-      request.delete('/api/v1/1/businesses/2')
+      request.delete('/api/v1/1/businesses/4')
         .expect(404)
         .end((err, res) => {
           done(err);
@@ -354,6 +369,29 @@ describe('WEConnect API Routes', () => {
     });
 
   });
+
+  // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses/:businessId', () => {
+
+  	// Business can not be found
+    it('Business can not be found', (done) => {
+      request.get('/api/v1/businesses/1')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+    
+    // Gets a single business
+    it('Gets a single business', (done) => {
+      request.get('/api/v1/businesses/2')
+        .expect(200)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+  });
+
 
 
 

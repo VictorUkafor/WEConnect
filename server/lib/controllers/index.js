@@ -279,7 +279,7 @@ export default class AllController {
     const business = this.businesses.find(b => b.id === businessId);
 
     if (!business) {
-      res.status(500).send({ message: 'Business can not be found!' });
+      res.status(404).send({ message: 'Business can not be found!' });
     } else { res.status(200).send({ message: business }); }
   }
 
