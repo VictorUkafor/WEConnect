@@ -390,7 +390,33 @@ describe('WEConnect API Routes', () => {
           done(err);
         });
     });
+
   });
+
+
+  // Testing for GET /api/v1/:userId/businesses
+  describe('GET /api/v1/:userId/businesses', () => {
+
+  	// Gets all businesses from a user 
+    it('Gets all businesses from a user', (done) => {
+      request.get('/api/v1/1/businesses')
+        .expect(200)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // User does not have any businesses 
+    it('User does not have any businesses', (done) => {
+      request.get('/api/v1/2/businesses')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  });
+
 
 
 
