@@ -368,7 +368,7 @@ export default class AllController {
         message: 'Business can not be found!'
       });
     } else if (reviewInfo.reviewBody === undefined) {
-      res.status(500).send({ message: 'Please add your comment!' });
+      res.status(500).send({ message: 'Please add your review!' });
     } else {
       const reviewBody = reviewInfo.reviewBody;
       const reviewer = `${user.firstName} ${user.lastName}`;
