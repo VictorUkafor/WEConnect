@@ -297,7 +297,7 @@ export default class AllController {
     const Businesses = this.businesses.filter(b => b.userId === userId);
 
     if (!Businesses || Businesses.length === 0) {
-      res.status(500).send({ message: 'You have no business!' });
+      res.status(404).send({ message: 'You have no business!' });
     } else { res.status(200).send({ message: Businesses }); }
   }
 
@@ -315,7 +315,7 @@ export default class AllController {
    */
   getAllBusinesses(req, res) {
     if (this.businesses.length === 0) {
-      res.status(500).send({ message: 'There are no businesses yet!' });
+      res.status(404).send({ message: 'There are no businesses yet!' });
     } else if (req.query.location) {
       const locationBiz = this.businesses.filter(b => b.location === req.query.location);
       if (locationBiz.length === 0) {
