@@ -465,6 +465,30 @@ describe('WEConnect API Routes', () => {
   });
 
 
+  // Testing for GET /api/v1/businesses?category=<category>
+  describe('GET /api/v1/businesses?category=<category>', () => {
+
+    // Gets all businesses filtered by category
+    it('Gets all businesses filtered by cateory', (done) => {
+      request.get('/api/v1/businesses?category=drugs')
+        .expect(200)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this category', (done) => {
+      request.get('/api/v1/businesses?category=education')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  });
+
+
 
 
 
