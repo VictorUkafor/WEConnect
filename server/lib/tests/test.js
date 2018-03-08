@@ -164,7 +164,7 @@ describe('WEConnect API Routes', () => {
   describe('POST /api/v1/auth/login', () => {
      
     // logs in a user successfully' 
-    it('logs a user into the app successfully', (done) => {
+    it('Logs a user into the app successfully', (done) => {
       request.post('/api/v1/auth/login')
       .send({
       	email: 'victorukafor@gmail.com',
@@ -177,7 +177,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // both fields are required' 
-    it('both fields are required', (done) => {
+    it('Both fields are required', (done) => {
       request.post('/api/v1/auth/login')
       .send({})  		      
         .expect(500)
@@ -187,7 +187,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // invalid email or password' 
-    it('invalid email or password', (done) => {
+    it('Invalid email or password', (done) => {
       request.post('/api/v1/auth/login')
       .send({
       	email: 'victorukafor@gmail.com1',
@@ -200,7 +200,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // invalid email or password' 
-    it('invalid email or password', (done) => {
+    it('Invalid email or password', (done) => {
       request.post('/api/v1/auth/login')
       .send({
       	email: 'victorukafor@gmail.com',
@@ -218,7 +218,7 @@ describe('WEConnect API Routes', () => {
   describe('POST /api/v1/:userId/businesses', () => {
     
     // Add a new business
-    it('adds a new business', (done) => {
+    it('Adds a new business', (done) => {
     	request.post('/api/v1/1/businesses')
     	.send({
     		businessName: 'VickCode Technologies',
@@ -235,7 +235,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // These fields are required
-    it('these fields are required', (done) => {
+    it('These fields are required', (done) => {
     	request.post('/api/v1/1/businesses')
     	.send({
             productsOrServices: 'web developments, web designs',
@@ -248,7 +248,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // Only registered users can add a business
-    it('only authenticated users can register a business', (done) => {
+    it('Only authenticated users can register a business', (done) => {
     	request.post('/api/v1/2/businesses')
     	.send({
     		businessName: 'VickCode Technologies',
@@ -263,6 +263,63 @@ describe('WEConnect API Routes', () => {
           done(err);
         });
     })    
+
+  });
+
+
+  // Testing for 'PUT /api/v1/userId/businesses/businessId'
+  describe('PUT /api/v1/:userId/businesses/:businessId', () => {
+
+  	// Updates a business
+    it('Updates a business', (done) => {
+      request.put('/api/v1/1/businesses/1')
+    	.send({
+    		businessName: 'VickCode Technologies Limited',
+  	        description: 'Web provides digital solutions',
+  	        categories: ['web design', 'web development'],
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Abuja',
+  		    address: 'Abuja',
+  		})      
+        .expect(201)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  	// Only business owners can update their businesses
+    it('Only business owners can update their businesses', (done) => {
+      request.put('/api/v1/2/businesses/1')
+    	.send({
+    		businessName: 'VickCode Technologies Limited',
+  	        description: 'Web provides digital solutions',
+  	        categories: ['web design', 'web development'],
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Abuja',
+  		    address: 'Abuja',
+  		})      
+        .expect(500)
+        .end((err, res) => {
+          done(err);
+        });
+    }); 
+
+  	// Business can not b found
+    it('Business can not be found', (done) => {
+      request.put('/api/v1/1/businesses/3')
+    	.send({
+    		businessName: 'VickCode Technologies Limited',
+  	        description: 'Web provides digital solutions',
+  	        categories: ['web design', 'web development'],
+            productsOrServices: 'web developments, web designs',
+  	        location: 'Abuja',
+  		    address: 'Abuja',
+  		})      
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });       
 
 
   });   
