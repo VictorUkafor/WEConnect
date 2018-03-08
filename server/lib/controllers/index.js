@@ -251,7 +251,25 @@ export default class AllController {
     getAllBusinesses(req, res) {    
     if(this.businesses.length === 0){
       res.status(500).send({ message: 'There are no businesses yet!' });
-    }else{ res.status(200).send({ message: this.businesses }); }
+    }else if(req.query.location){
+
+      const locationBiz = this.businesses.filter(b => b.location === req.query.location);
+      if(locationBiz.length === 0){
+        res.status(404).send({ message: 'There are no businesses with this location' });
+      }else{
+        res.status(200).send({ message: locationBiz });
+      }
+    }else if(req.query.category){
+
+      const categoryBiz = this.businesses.filter(b => b.categories.indexOf(req.query.category) > -1 );
+      if(categoryBiz.length === 0){
+        res.status(404).send({ message: 'There are no businesses with this category' });
+      }else{
+        res.status(200).send({ message: categoryBiz });
+      }
+    }else{ 
+      res.status(200).send({ message: ['All businesses', this.businesses] }); 
+    }
     
     }
 
