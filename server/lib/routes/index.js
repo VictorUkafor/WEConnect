@@ -1,5 +1,5 @@
 import express from 'express';
-import 	AllController from '../controllers/index';
+import AllController from '../controllers/index';
 
 const apiRouter = express.Router();
 const allController = new AllController(apiRouter);
