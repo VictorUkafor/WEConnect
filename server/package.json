@@ -4,11 +4,11 @@
   "description": "WEConnect Web App",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon lib/server.js --exec babel-node --presets airbnb,stage-2",
-    "build": "babel lib -d dist --presets airbnb,stage-2",
-    "serve": "node dist/server.js",
-    "eslint": "./node_modules/.bin/eslint --fix ./lib",
-    "test": "mocha ./dist/tests"
+    "start": "nodemon server.js --exec babel-node",
+    "test": "mocha --compilers js:babel-register --exit",
+    "eslint": "eslint --fix ./lib",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --compilers js:babel-registe test",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | cat ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Victor Ukafor",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "babel-core": "^6.26.0",
     "babel-preset-airbnb": "^2.4.0",
     "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
     "eslint": "^4.18.2",

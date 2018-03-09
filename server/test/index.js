@@ -45,76 +45,6 @@ describe('WEConnect API Routes', () => {
   	});
     
     // All fields are required
-  	it('The First Name field is required', (done) => {
-  		request.post('/api/v1/auth/signup')
-  		.send({
-  			lastName: 'Ukafor',
-  			email: 'victorukafor@gmail.com',
-  			password: 'password',
-  			confirm_password: 'password',
-  		})
-  		.expect(500)
-  		.end((err) => {
-  			done(err);
-  		});
-  	});
-
-  	it('The Last Name field is required', (done) => {
-  		request.post('/api/v1/auth/signup')
-  		.send({
-  			firstName: 'Victor',
-  			email: 'victorukafor@gmail.com',
-  			password: 'password',
-  			confirm_password: 'password',
-  		})
-  		.expect(500)
-  		.end((err) => {
-  			done(err);
-  		});
-  	});
-
-  	it('The Email field is required', (done) => {
-  		request.post('/api/v1/auth/signup')
-  		.send({
-  			firstName: 'Victor',
-  			lastName: 'Ukafor',
-  			password: 'password',
-  			confirm_password: 'password',
-  		})
-  		.expect(500)
-  		.end((err) => {
-  			done(err);
-  		});
-  	}); 
-
-  	it('The Password field is required', (done) => {
-  		request.post('/api/v1/auth/signup')
-  		.send({
-  			firstName: 'Victor',
-  			lastName: 'Ukafor',
-  			email: 'victorukafor@gmail.com',
-  			confirm_password: 'password',
-  		})
-  		.expect(500)
-  		.end((err) => {
-  			done(err);
-  		});
-  	});
-
-  	it('The Confirm Password field is required', (done) => {
-  		request.post('/api/v1/auth/signup')
-  		.send({
-  			firstName: 'Victor',
-  			lastName: 'Ukafor',
-  			email: 'victorukafor@gmail.com',
-  			password: 'password',
-  		})
-  		.expect(500)
-  		.end((err) => {
-  			done(err);
-  		});
-  	}); 
-
   	it('All fields are required', (done) => {
   		request.post('/api/v1/auth/signup')
   		.send({})
@@ -249,6 +179,22 @@ describe('WEConnect API Routes', () => {
         });
     });
 
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+      .send({
+        businessName: 'Smart Medicals2',
+            description: 'Web drugs',
+            categories: ['drugs'],
+            location: 'Kano',
+      })
+      .expect(201)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
     // These fields are required
     it('These fields are required', (done) => {
     	request.post('/api/v1/1/businesses')
@@ -321,7 +267,7 @@ describe('WEConnect API Routes', () => {
 
   	// Business can not be found
     it('Business can not be found', (done) => {
-      request.put('/api/v1/1/businesses/3')
+      request.put('/api/v1/1/businesses/10')
     	.send({
     		businessName: 'VickCode Technologies Limited',
   	        description: 'Web provides digital solutions',
@@ -506,7 +452,7 @@ describe('WEConnect API Routes', () => {
 
     // Business can not be found
     it('Business can not be found', (done) => {
-      request.post('/api/v1/1/businesses/1/reviews')
+      request.post( '/api/v1/1/businesses/1/reviews')
       .send({
         reviewBody: 'Cool business',
       })
@@ -531,6 +477,30 @@ describe('WEConnect API Routes', () => {
       request.post('/api/v1/1/businesses/2/reviews')
       .send({ reviewBody: 'Cool business', })
       .expect(201)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+  });
+
+
+  // Testing for GET /api/v1/businesses/<businessId>/reviews
+  describe('GET /api/v1/businesses/<businessId>/reviews', () => {
+
+    // Business does can not be found
+    it('Business does can not be found', (done) => {
+      request.get('/api/v1/businesses/1/reviews')
+        .expect(404)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+
+    // Gets all reviews from a business
+    it('Gets all reviews from a business', (done) => {
+      request.get('/api/v1/businesses/2/reviews')
+        .expect(200)
         .end((err, res) => {
           done(err);
         });
