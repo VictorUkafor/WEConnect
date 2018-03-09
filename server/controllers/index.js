@@ -403,7 +403,7 @@ export default class AllController {
     } else if (!singleBusinessReviews) {
       res.status(404).send({ message: 'This business has no reviews!' });
     } else {
-      res.status(201).send({ message: singleBusinessReviews });
+      res.status(200).send({ message: singleBusinessReviews });
     }
   }
 }
