@@ -4,7 +4,7 @@
   "description": "WEConnect Web App",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node",
+    "start": "nodemon server.js --exec babel-node --presets airbnb,stage-2",
     "test": "mocha --compilers js:babel-register --exit",
     "eslint": "eslint --fix ./lib",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --compilers js:babel-register test",
