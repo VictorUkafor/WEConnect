@@ -7,7 +7,7 @@
     "start": "nodemon server.js --exec babel-node",
     "test": "mocha --compilers js:babel-register --exit",
     "eslint": "eslint --fix ./lib",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --compilers js:babel-registe test",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --compilers js:babel-register test",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | cat ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Victor Ukafor",
