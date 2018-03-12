@@ -5,8 +5,6 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon lib/server.js --exec babel-node --presets airbnb,stage-2",
-    "build": "babel lib -d dist --presets airbnb,stage-2",
-    "serve": "node dist/server.js",
    "eslint": "./node_modules/.bin/eslint --fix ./lib"
   },
   "author": "Victor Ukafor",
