@@ -1,0 +1,460 @@
+body {
+    background-color:#f4f4f4;
+	margin:0px auto;
+	min-width:100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.head{
+	
+}
+ /* ================= header section ================*/
+.logo{
+	margin-top: 30px;
+	margin-bottom: 10px;
+	margin-left:3%;
+}
+
+.signin-form{
+	margin-left: 23%;
+}
+
+.signin-field{
+	border: 2px solid #0b85c2;
+	border-radius: 0px;
+}
+
+.signin-button{
+	border-radius: 0px;
+	border: 2px solid #0b85c2;
+	background-color: #0b85c2;
+	color: #fff;
+	font-family:candara;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.signin-button:hover{
+	border: 2px solid #0b85c2;
+	background-color: #f4f4f4;
+	color: #0b85c2;
+}
+
+
+.sign-ins ul{
+	margin-top: 10px;
+	margin-bottom: 25px;
+	margin-left: 70%;
+}
+
+.sign-ins li{
+	display:inline;
+}
+
+.sign-ins li a{
+	outline:none;
+}
+
+.sign-ins li a:hover{
+	text-decoration:none;
+}
+
+
+.sign-ins li input{
+	border:0;
+	color:#0b85c2;
+	background-color:#f4f4f4;
+	font-family:candara;
+	font-size:14px;
+	font-weight:bold;
+	height:30px;
+	margin-left: 1%;
+	outline:none;
+}
+
+.sign-ins li input:hover{
+	opacity: 0.8;
+	text-decoration: underline; 
+}
+
+
+
+.navi{
+	height:45px;
+	background-color:#0b85c2;
+}
+
+.navi ul{
+	margin-left:3%;
+}
+
+.navi li{
+	display:inline;
+}
+
+.navi li a{
+	outline:none;
+}
+
+.navi li a:hover{
+	text-decoration:none;
+}
+
+
+.navi li input{
+	border:0;
+	color:white;
+	background-color:#0b85c2;
+	font-family:candara;
+	font-size:18px;
+	font-weight:bold;
+	height:45px;
+	padding-left:2.5%;
+	padding-right:2.5%;
+	margin-left:-1%;
+	outline:none;
+}
+
+.navi li input:hover{
+	background-color:#f4f4f4;
+	color:#0b85c2;
+}
+
+ #home .nav1, #about .nav2, #services .nav3, #contact .nav4{
+	background-color:#0a6ea0;
+	color:white;
+}
+
+
+/*==================== carousel section ====================*/
+
+.carousel-control {
+    color:#0b85c2;
+	opacity:0.9;
+}
+
+.carousel-control.right{
+    background-image: linear-gradient(to right, transparent 0px, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.carousel-control.left{
+    background-image: linear-gradient(to left, transparent 0px, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.carousel-indicators .active {
+    background-color:#0b85c2;
+}
+
+
+.carousel-indicators li {
+    border: 1px solid #0b85c2;
+}
+
+
+/*======================== slideshows section =====================*/
+
+.slideshow{
+	margin-bottom: 5px;
+	margin-top: -10px;
+}
+
+.business-heading{
+	color: #0b85c2;
+	font-family:candara;
+	font-weight: bold;
+	font-size: 25px;
+	margin-left: 10%;
+
+}
+
+.thumbnail-section{
+	padding-top: 10px;
+	padding-bottom: 20px;
+	margin-left: -0.5%;
+}
+
+.thumbnail-single{
+	border: 2px solid #0b85c2;
+	height:auto;
+	background-color:#f4f4f4;
+	padding:10px;
+	outline:none;
+	margin-bottom: 10px;
+}
+
+.thumbnail-single>a>img{
+	width:110%;
+	margin: -10px;
+	margin-bottom: 10px;
+	
+}
+
+.thumbnail-single>a>img:hover{
+	opacity: 0.7;
+	width:100%;
+	margin-left: 1%;
+	margin-top: 3px;
+}
+
+.thumbnail-single a{
+	outline:none;
+	text-decoration:none;
+}
+
+.thumbnail-single a:hover{
+	text-decoration:none;
+	outline:none;
+}
+
+
+.thumbnail-single h1{
+	font-family:candara;
+	font-weight:bold;
+	line-height:20px;
+	font-size:16px;
+	color:#0b85c2;
+	text-align:center;
+	width:80%;
+	margin-top:2px;
+}
+
+.thumbnail-single h1:hover{
+	text-decoration: underline;
+ 
+}
+
+.thumbnail-single p {
+	font-family:corbel;
+	font-size:13px;
+	line-height:18px;
+	color:black;
+	width:92%;
+	margin-left:4%;
+	margin-top:5px;
+}
+
+.thumbnail-single p>a{
+	color:black;
+}
+
+
+.thumbnail-single p:hover{
+	text-decoration: underline;
+}
+
+
+
+.view-more{
+	border: 2px solid #0b85c2;
+	border-radius: 0px;
+	padding-left: 15%;
+    padding-right: 15%;
+    margin-left: 27%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+ 	background-color: #0b85c2;
+	color: #fff;
+	font-family:corbel;
+	font-weight: bold;
+	font-size:13px;
+}
+
+.view-more:hover{
+	border: 2px solid #0b85c2;
+	color: #0b85c2;
+	text-decoration: underline;
+	background-color: #f4f4f4;
+}
+
+
+/* ===================== footer section =========================*/
+.footer{
+	background-color: #000;
+	width: 100%;
+	height: auto;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	
+}
+
+.footer-nav{
+	margin-left: -13%;
+}
+
+.footer-nav li, .copyright{
+	display: inline;
+	color: #fff;
+	font-family:corbel;
+	font-weight: bold;
+	font-size:12px;
+}
+
+.footer-nav li a{
+	color: #fff;
+}
+
+.footer-nav li a:hover{
+	opacity: 0.7;
+}
+
+.copyright{
+	margin-top: 2px;
+}
+
+#home .footer-nav1{
+	opacity: 0.7;
+	text-decoration: underline;
+}
+
+/*=======================medium screen ====== index page=================================*/
+
+@media screen and (min-width:1024px){
+
+.thumbnail-section{
+	width: 103%;
+}
+
+.thumbnail-single{
+	width:23%;
+	margin-right: 19px;
+}
+
+
+
+}
+
+
+@media screen and (min-width:1280px){
+
+.thumbnail-section{
+	margin-left: 0.3%;
+}
+
+.signin-form{
+	margin-left: 40%;
+}
+
+
+.thumbnail-single>a>img{
+	width:107%;
+	margin: -10px;
+	margin-bottom: 10px;
+	
+}
+
+.thumbnail-single>a>img:hover{
+	opacity: 0.7;
+	width:97%;
+
+	
+}
+
+}
+
+
+@media screen and (min-width:1440px){
+
+.thumbnail-single>a>img{
+	width:106%;
+	
+}
+
+}
+
+/*========================small screen ====index page ==========================*/
+
+@media screen and (max-width: 900px){
+
+.logo{
+	margin-top: 20px;
+	width: 40%;
+	height: auto;
+	margin-left:2%;
+	margin-bottom: -35px;
+}
+
+.sign-ins ul{
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-left: 45%;
+	width: 120%;
+}
+
+.signin-form{
+	margin-left: 0%;
+	margin-bottom: 30px;
+}
+
+.signin-button{
+	width: 100%;
+}
+
+.thumbnail-section{
+	padding-top: 10px;
+	padding-bottom: 20px;
+	width: 108%;
+	margin-left: -4%;
+}
+
+.navi{
+	width: 107%;
+	margin-left: -7px;
+}
+
+.navi ul{
+	margin-left:-12.8%;
+}
+
+.navi li input{
+	font-size:10px;
+	height:45px;
+	padding-left:1.2%;
+	padding-right:1.2%;
+	margin-left:-1%;
+}
+
+.slideshow{
+	margin-left: -4.5%;
+	width: 110%;
+	margin-top: 0px;
+}
+
+.business-heading{
+	padding-top: 15px;
+	font-size: 18px;
+	margin-left: 6%;
+
+}
+
+.thumbnail-single>a>img{
+	width:106%;
+	margin: -10px;
+	margin-bottom: 10px;
+	height: 20%;
+	
+}
+
+.footer-nav li, .copyright{
+	font-size:10px;
+}
+
+.footer-nav{
+	margin-left: -18%;
+}
+
+.copyright{
+	margin-left: -3%;
+	margin-bottom: 10px;
+}
+
+.view-more{
+	padding-left: 24%;
+    padding-right: 24%;
+    margin-top: 10px;
+    margin-left: 0%;
+}
+
+
+
+}
