@@ -4,10 +4,9 @@
   "description": "WEConnect Web App",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon lib/server.js --exec babel-node --presets airbnb,stage-2",
-    "build": "babel lib -d dist --presets airbnb,stage-2",
-    "serve": "node dist/server.js",
-   "eslint": "./node_modules/.bin/eslint --fix ./lib"
+   "start": "nodemon server.js --exec babel-node --presets airbnb,stage-2",
+   "build": "babel lib -d ./server/dist --presets airbnb,stage-2",
+   "eslint": "./node_modules/.bin/eslint --fix ./server/dist"
   },
   "author": "Victor Ukafor",
   "license": "ISC",
