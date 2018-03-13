@@ -27,6 +27,7 @@ export default class AllController {
     this.router.post('/auth/login', this.loginUser.bind(this));
     this.router.post('/:userId/businesses', this.postBusiness.bind(this));
     this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
+    this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
   }
 
   /** An API for adding a new user:
@@ -228,6 +229,34 @@ export default class AllController {
         });
       } res.status(404).send({ message: 'Business can not be found!' });
     }
-  }  
+  }
+
+  /**
+   *  An API for removing a business
+   *  DELETE: /<userId>/businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  removeBusiness(req, res) {
+    const userId = parseInt(req.params.userId, 10);
+    const userToRemove = this.users.find(user => user.id === userId);
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToRemove = this.businesses.find(b => b.id === businessId);
+
+    if (!userToRemove) {
+      res.status(500).send({
+        message: 'Only business owners can remove their businesses!'
+      });
+    } else if (businessToRemove && businessToRemove.userId === userId) {
+      this.businesses = this.businesses.filter(b => b.id !== businessId);
+
+      res.status(200).send({
+        message: ['Your business has been removed successfully', this.businesses]
+      });
+    } else { res.status(404).send({ message: 'Business can not be found!' }); }
+  }    
 }
 
