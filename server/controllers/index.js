@@ -28,6 +28,7 @@ export default class AllController {
     this.router.post('/:userId/businesses', this.postBusiness.bind(this));
     this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
     this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
+    this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
   }
 
   /** An API for adding a new user:
@@ -257,6 +258,24 @@ export default class AllController {
         message: ['Your business has been removed successfully', this.businesses]
       });
     } else { res.status(404).send({ message: 'Business can not be found!' }); }
-  }    
+  }
+
+  /**
+   *  An API for getting a single business
+   *  GET: /businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getBusiness(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToGet = this.businesses.find(b => b.id === businessId);
+
+    if (!businessToGet) {
+      res.status(404).send({ message: 'Business can not be found!' });
+    } else { res.status(200).send({ message: businessToGet }); }
+  }      
 }
 
