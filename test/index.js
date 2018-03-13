@@ -212,5 +212,85 @@ describe('WEConnect API Routes', () => {
     });
   });
 
+  // Testing for 'POST /api/v1/<userId>/businesses
+  describe('POST /api/v1/<userId>/businesses', () => {
+    // Add a new business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'VickCode Technologies',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'Smart Medicals',
+          description: 'Web drugs',
+          categories: ['drugs'],
+          location: 'Kano',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'Smart Medicals2',
+          description: 'Web drugs',
+          categories: ['drugs'],
+          location: 'Kano',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // These fields are required
+    it('These fields are required', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Only registered users can add a business
+    it('Only authenticated users can register a business', (done) => {
+      request.post('/api/v1/2/businesses')
+        .send({
+          businessName: 'VickCode Technologies',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
   
 });
