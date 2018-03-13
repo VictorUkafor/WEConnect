@@ -14,6 +14,7 @@ export default class AllController {
     this.router = router;
     this.registerRoutes();
     this.users = [];
+    this.businesses = [];
   }
 
   /**
@@ -24,6 +25,7 @@ export default class AllController {
   registerRoutes() {
     this.router.post('/auth/signup', this.postUser.bind(this));
     this.router.post('/auth/login', this.loginUser.bind(this));
+    this.router.post('/:userId/businesses', this.postBusiness.bind(this));
   }
 
   /** An API for adding a new user:
@@ -105,6 +107,78 @@ export default class AllController {
       res.status(201).send({ message: `Welcome! ${validate.firstName} ${validate.lastName}` });
     } else {
       res.status(404).send({ message: 'Invalid email or password!' });
+    }
+  }
+
+  /**
+   *  An API for adding a business
+   *  POST: /<userId>/businesses
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  postBusiness(req, res) {
+    const { body: businessInfo } = req;
+    const errors = [];
+    const userId = parseInt(req.params.userId, 10);
+    const businessToPost = this.users.find(user => user.id === userId);
+
+    let id = '';
+    if (this.businesses.length === 0) {
+      id = 1;
+    } else {
+      id = this.businesses[this.businesses.length - 1].id + 1;
+    }
+
+    if (!businessToPost) {
+      res.status(500).send({
+        message: 'Only registered users can add a business!'
+      });
+    } else {
+      const businessFields = {
+        businessName: 'The Name of the Business is required',
+        description: 'The Business description is required',
+        location: 'The Location field is required',
+        categories: 'You must select atleast one category',
+      };
+
+      if (!Object.keys(businessInfo).length > 0) {
+        res.status(500).send({
+          message: 'Please fill in the required fields!'
+        });
+      } else {
+        Object.keys(businessFields).forEach((field) => {
+          if (!businessInfo[field]) { errors.push(businessFields[field]); }
+        });
+
+        if (errors.length > 0) {
+          res.status(500).send({ message: errors });
+        } else {
+          const { businessName } = businessInfo;
+          const { description } = businessInfo;
+          const { categories } = businessInfo;
+          const { productsOrServices } = businessInfo;
+          const { location } = businessInfo;
+          const { address } = businessInfo;
+          const business = {
+            id,
+            userId,
+            businessName,
+            description,
+            categories,
+            productsOrServices,
+            location,
+            address
+          };
+
+          this.businesses.push(business);
+          return res.status(201).send({
+            message: ['A new business has been added successfully', this.businesses]
+          });
+        }
+      }
     }
   }
 }
