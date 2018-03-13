@@ -29,6 +29,7 @@ export default class AllController {
     this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
     this.router.delete('/:userId/businesses/:businessId', this.removeBusiness.bind(this));
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
+    this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
   }
 
   /** An API for adding a new user:
@@ -276,6 +277,24 @@ export default class AllController {
     if (!businessToGet) {
       res.status(404).send({ message: 'Business can not be found!' });
     } else { res.status(200).send({ message: businessToGet }); }
-  }      
+  }
+
+  /**
+   *  An API for getting all businesses of a user
+   *  GET: /<userId>/businesses
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getUserBusinesses(req, res) {
+    const userId = parseInt(req.params.userId, 10);
+    const Businesses = this.businesses.filter(b => b.userId === userId);
+
+    if (!Businesses || Businesses.length === 0) {
+      res.status(404).send({ message: 'You have no business!' });
+    } else { res.status(200).send({ message: Businesses }); }
+  }        
 }
 
