@@ -346,6 +346,36 @@ describe('WEConnect API Routes', () => {
     });
   });
 
+  // Testing for 'DELETE /api/v1/<userId>/businesses/<businessId>'
+  describe('DELETE /api/v1/<userId>/businesses/<businessId>', () => {
+    // Only business owners can remove their businesses
+    it('Only business owners can remove their businesses', (done) => {
+      request.delete('/api/v1/2/businesses/1')
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.delete('/api/v1/1/businesses/4')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Deletes a business
+    it('Removes a business', (done) => {
+      request.delete('/api/v1/1/businesses/1')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
 
   
 });
