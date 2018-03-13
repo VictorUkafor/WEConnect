@@ -1,16 +1,20 @@
 # Project Title #
 
-WEConnect(Template) - This is the template of an app that gives business owners the opportunity to upload their businesses' profiles online, so users can write reviews on the business they interacted with.
+WEConnect(Template) - This is the template of an app that gives business owners 
+the opportunity to upload their businesses' profiles online, so users can write 
+reviews on the business they interacted with.
 
 
 # Getting Started #
 
-To get started with the project, download the ZIP file or clone it to your local machine.
+To get started with the project, download the ZIP file or clone it to your local
+ machine.
 
 
 # Prerequisites #
 
-The only requirement needed to preview this template is an internet browser. You don't need to an internet connection.
+The only requirement needed to preview this template is an internet browser. 
+You don't need to an internet connection.
 
 
 # Installing and Running #
