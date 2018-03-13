@@ -292,5 +292,60 @@ describe('WEConnect API Routes', () => {
     });
   });
 
+  // Testing for 'PUT /api/v1/<userId>/businesses/<businessId>'
+  describe('PUT /api/v1/<userId>/businesses/<businessId>', () => {
+    // Updates a business
+    it('Updates a business', (done) => {
+      request.put('/api/v1/1/businesses/1')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Only business owners can update their businesses
+    it('Only business owners can update their businesses', (done) => {
+      request.put('/api/v1/2/businesses/1')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.put('/api/v1/1/businesses/10')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+
   
 });
