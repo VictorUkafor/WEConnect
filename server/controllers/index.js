@@ -26,6 +26,7 @@ export default class AllController {
     this.router.post('/auth/signup', this.postUser.bind(this));
     this.router.post('/auth/login', this.loginUser.bind(this));
     this.router.post('/:userId/businesses', this.postBusiness.bind(this));
+    this.router.put('/:userId/businesses/:businessId', this.updateBusiness.bind(this));
   }
 
   /** An API for adding a new user:
@@ -181,5 +182,52 @@ export default class AllController {
       }
     }
   }
+
+  /**
+   *  An API for updating a business
+   *  PUT: /<userId>/businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  updateBusiness(req, res) {
+    const businessInfo = req.body;
+    const userId = parseInt(req.params.userId, 10);
+    const userToUpdate = this.users.find(user => user.id === userId);
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToUpdate = this.businesses.find(b => b.id === businessId);
+
+    if (!userToUpdate) {
+      res.status(500).send({
+        message: 'Only business owners can update their businesses!'
+      });
+    } else {
+      if (businessToUpdate && businessToUpdate.userId === userId) {
+        businessToUpdate.businessName = businessInfo.businessName ?
+          businessInfo.businessName : businessToUpdate.businessName;
+
+        businessToUpdate.description = businessInfo.description ?
+          businessInfo.description : businessToUpdate.description;
+
+        businessToUpdate.categories = businessInfo.categories ?
+          businessInfo.categories : businessToUpdate.categories;
+
+        businessToUpdate.productsOrServices = businessInfo.productsOrServices ?
+          businessInfo.productsOrServices : businessToUpdate.businessName;
+
+        businessToUpdate.location = businessInfo.location ?
+          businessInfo.location : businessToUpdate.location;
+
+        businessToUpdate.address = businessInfo.address ?
+          businessInfo.address : businessToUpdate.address;
+
+        return res.status(201).send({
+          message: ['Your business has been updated successfully', this.businesses]
+        });
+      } res.status(404).send({ message: 'Business can not be found!' });
+    }
+  }  
 }
 
