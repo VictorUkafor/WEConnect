@@ -23,6 +23,7 @@ export default class AllController {
   */
   registerRoutes() {
     this.router.post('/auth/signup', this.postUser.bind(this));
+    this.router.post('/auth/login', this.loginUser.bind(this));
   }
 
   /** An API for adding a new user:
@@ -82,6 +83,28 @@ export default class AllController {
           message: ['A new user has been added successfully', this.users]
         });
       }
+    }
+  }
+
+  /**
+   *  An API for logging into the app
+   *  POST: /auth/login
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  loginUser(req, res) {
+    const userInfo = req.body;
+    const validate = this.users.find(user => user.email === userInfo.email);
+
+    if (Object.keys(userInfo).length !== 2) {
+      res.status(500).send({ message: 'All fields are required!' });
+    } else if (validate && validate.password === userInfo.password) {
+      res.status(201).send({ message: `Welcome! ${validate.firstName} ${validate.lastName}` });
+    } else {
+      res.status(404).send({ message: 'Invalid email or password!' });
     }
   }
 }
