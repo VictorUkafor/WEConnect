@@ -302,8 +302,29 @@ export default class AllController {
   }
 
   /**
+   *  An API for getting all businesses of a user
+   *  GET: /<userId>/businesses
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getUserBusinesses(req, res) {
+    const userId = parseInt(req.params.userId, 10);
+    const Businesses = this.businesses.filter(b => b.userId === userId);
+
+    if (!Businesses || Businesses.length === 0) {
+      res.status(404).send({ message: 'You have no business!' });
+    } else { res.status(200).send({ message: Businesses }); }
+  }
+
+  /**
    *  An API for getting all businesses
+   *  businesses filtered by location or category
    *  GET: /businesses
+   *  GET: /businesses?location=<location>
+   *  GET: /businesses?category=<category>
    *  Takes 2 parameters
    *  @param {object} req the first parameter
    *  @param  {object} res the second parameter
@@ -313,6 +334,21 @@ export default class AllController {
   getAllBusinesses(req, res) {
     if (this.businesses.length === 0) {
       res.status(404).send({ message: 'There are no businesses yet!' });
+    } else if (req.query.location) {
+      const locationBiz = this.businesses.filter(b => b.location === req.query.location);
+      if (locationBiz.length === 0) {
+        res.status(404).send({ message: 'There are no businesses with this location' });
+      } else {
+        res.status(200).send({ message: locationBiz });
+      }
+    } else if (req.query.category) {
+      const categoryBiz =
+      this.businesses.filter(b => b.categories.indexOf(req.query.category) > -1);
+      if (categoryBiz.length === 0) {
+        res.status(404).send({ message: 'There are no businesses with this category' });
+      } else {
+        res.status(200).send({ message: categoryBiz });
+      }
     } else {
       res.status(200).send({ message: ['All businesses', this.businesses] });
     }
