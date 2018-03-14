@@ -33,6 +33,7 @@ export default class AllController {
     this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
     this.router.get('/businesses', this.getAllBusinesses.bind(this));
     this.router.post('/:userId/businesses/:businessId/reviews', this.postReview.bind(this));
+    this.router.get('/businesses/:businessId/reviews', this.getReviews.bind(this));
   }
 
   /** An API for adding a new user:
@@ -362,7 +363,30 @@ export default class AllController {
       return res.status(201).send({
         message: ['Review added successfully', singleBusinessReview]
       });
+    };
+  }; 
+
+  /**
+   *  An API for getting reviews of a business
+   *  GET: /businesses/<businessId>/reviews
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getReviews(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToReview = this.businesses.find(b => b.id === businessId);
+    const singleBusinessReviews = this.reviews.filter(r => r.businessId === businessId);
+
+    if (!businessToReview) {
+      res.status(404).send({ message: 'Business can not be found!' });
+    } else if (!singleBusinessReviews) {
+      res.status(404).send({ message: 'This business has no reviews!' });
+    } else {
+      res.status(200).send({ message: singleBusinessReviews });
     }
-  }            
-}
+  }             
+};
 
