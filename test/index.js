@@ -416,8 +416,27 @@ describe('WEConnect API Routes', () => {
           done(err);
         });
     });
-  });    
+  }); 
 
+  // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses', () => {
+    it('Gets all businesses', (done) => {
+      request.get('/api/v1/businesses')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Businesses can not be found
+    it('Businesses can not be found', (done) => {
+      request.get('/api/v1/business')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
 
   
 });
