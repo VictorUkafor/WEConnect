@@ -15,6 +15,7 @@ export default class AllController {
     this.registerRoutes();
     this.users = [];
     this.businesses = [];
+    this.reviews = [];
   }
 
   /**
@@ -31,6 +32,7 @@ export default class AllController {
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
     this.router.get('/:userId/businesses', this.getUserBusinesses.bind(this));
     this.router.get('/businesses', this.getAllBusinesses.bind(this));
+    this.router.post('/:userId/businesses/:businessId/reviews', this.postReview.bind(this));
   }
 
   /** An API for adding a new user:
@@ -313,6 +315,54 @@ export default class AllController {
     } else {
       res.status(200).send({ message: ['All businesses', this.businesses] });
     }
-  }          
+  }
+
+  /**
+   *  An API for adding a review to a business
+   *  POST: /<userId>/businesses/<businessId>/reviews
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  postReview(req, res) {
+    const { body:reviewInfo } = req;
+    const userId = parseInt(req.params.userId, 10);
+    const businessId = parseInt(req.params.businessId, 10);
+    const userToPost = this.users.find(user => user.id === userId);
+    const businessToPost = this.businesses.find(b => b.id === businessId);
+
+    let id = '';
+    if (this.reviews.length === 0) {
+      id = 1;
+    } else {
+      id = this.reviews[this.reviews.length - 1].id + 1;
+    }
+
+    if (!userToPost) {
+      res.status(500).send({
+        message: 'Only registered users can add a review!'
+      });
+    } else if (!businessToPost) {
+      res.status(404).send({
+        message: 'Business can not be found!'
+      });
+    } else if (reviewInfo.reviewBody === undefined) {
+      res.status(500).send({ message: 'Please add your review!' });
+    } else {
+      const { reviewBody } = reviewInfo;
+      const reviewer = `${userToPost.firstName} ${userToPost.lastName}`;
+      const review = {
+        id, businessId, reviewer, reviewBody,
+      };
+
+      this.reviews.push(review);
+      const singleBusinessReview = this.reviews.filter(r => r.businessId === businessId);
+      return res.status(201).send({
+        message: ['Review added successfully', singleBusinessReview]
+      });
+    }
+  }            
 }
 
