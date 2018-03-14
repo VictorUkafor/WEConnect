@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.babelrc
+eslintrc
+../npm-debug.log
+npm-debug.log
