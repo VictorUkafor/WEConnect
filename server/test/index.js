@@ -1,0 +1,553 @@
+import supertest from 'supertest';
+import chai from 'chai';
+import app from '../../index';
+
+const { expect } = chai;
+const request = supertest(app);
+
+
+describe('WEConnect API Routes', () => {
+  beforeEach((done) => {
+  // before each route
+    done();
+  });
+
+
+  describe('GET /api/v1', () => {
+    it('Displays the index page', (done) => {
+      request.get('/api/v1')
+        .expect(200)
+        .end((err, res) => {
+          const expected = { message: 'Welcome to the WEConnect app!' };
+          expect(res.body).to.eql(expected);
+          done(err);
+        });
+    });
+  });
+
+
+  // Testing for 'POST /api/v1/auth/signup'
+  describe('POST /api/v1/auth/signup', () => {
+  // Adds a user successfully
+    it('Adds a new user', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+          confirm_password: 'password',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+  // First Name field is required
+    it('First Name field is required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          lastName: 'Ukafor',
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+          confirm_password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+  // Last Name field is required
+    it('Last Name field is required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+          confirm_password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+  // Email field is required
+    it('Email field is required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          password: 'password',
+          confirm_password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+  // Password is required
+    it('Password is required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          confirm_password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    }); 
+
+  // Confirm Password is required
+    it('Confirm Password is required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });                    
+
+    // All fields are required
+    it('All fields are required', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({})
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Password did not match
+    it('Password did not match', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+          confirm_password: 'password1',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // User has already been registered
+    it('The user with this email has already been registered', (done) => {
+      request.post('/api/v1/auth/signup')
+        .send({
+          firstName: 'Victor',
+          lastName: 'Ukafor',
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+          confirm_password: 'password',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for 'POST /api/v1/auth/login'
+  describe('POST /api/v1/auth/login', () => {
+    // logs in a user successfully
+    it('Logs a user into the app successfully', (done) => {
+      request.post('/api/v1/auth/login')
+        .send({
+          email: 'victorukafor@gmail.com',
+          password: 'password',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // both fields are required
+    it('Both fields are required', (done) => {
+      request.post('/api/v1/auth/login')
+        .send({})
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // invalid email or password
+    it('Invalid email or password', (done) => {
+      request.post('/api/v1/auth/login')
+        .send({
+          email: 'victorukafor@gmail.com1',
+          password: 'password',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // invalid email or password
+    it('Invalid email or password', (done) => {
+      request.post('/api/v1/auth/login')
+        .send({
+          email: 'victorukafor@gmail.com',
+          password: 'password1',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for 'POST /api/v1/<userId>/businesses
+  describe('POST /api/v1/<userId>/businesses', () => {
+    // Add a new business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'VickCode Technologies',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'Smart Medicals',
+          description: 'Web drugs',
+          categories: ['drugs'],
+          location: 'Kano',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Adds another business
+    it('Adds a new business', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          businessName: 'Smart Medicals2',
+          description: 'Web drugs',
+          categories: ['drugs'],
+          location: 'Kano',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // These fields are required
+    it('These fields are required', (done) => {
+      request.post('/api/v1/1/businesses')
+        .send({
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Only registered users can add a business
+    it('Only authenticated users can register a business', (done) => {
+      request.post('/api/v1/2/businesses')
+        .send({
+          businessName: 'VickCode Technologies',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for 'PUT /api/v1/<userId>/businesses/<businessId>'
+  describe('PUT /api/v1/<userId>/businesses/<businessId>', () => {
+    // Updates a business
+    it('Updates a business', (done) => {
+      request.put('/api/v1/1/businesses/1')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Only business owners can update their businesses
+    it('Only business owners can update their businesses', (done) => {
+      request.put('/api/v1/2/businesses/1')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.put('/api/v1/1/businesses/10')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for 'DELETE /api/v1/<userId>/businesses/<businessId>'
+  describe('DELETE /api/v1/<userId>/businesses/<businessId>', () => {
+    // Only business owners can remove their businesses
+    it('Only business owners can remove their businesses', (done) => {
+      request.delete('/api/v1/2/businesses/1')
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.delete('/api/v1/1/businesses/4')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Deletes a business
+    it('Removes a business', (done) => {
+      request.delete('/api/v1/1/businesses/1')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+ // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses/<businessId>', () => {
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.get('/api/v1/businesses/1')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Gets a single business
+    it('Gets a single business', (done) => {
+      request.get('/api/v1/businesses/2')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/<userId>/businesses
+  describe('GET /api/v1/<userId>/businesses', () => {
+    // Gets all businesses from a user
+    it('Gets all businesses from a user', (done) => {
+      request.get('/api/v1/1/businesses')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // User does not have any businesses
+    it('User does not have any businesses', (done) => {
+      request.get('/api/v1/2/businesses')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  }); 
+
+  // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses', () => {
+    it('Gets all businesses', (done) => {
+      request.get('/api/v1/businesses')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Businesses can not be found
+    it('Businesses can not be found', (done) => {
+      request.get('/api/v1/business')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/businesses?location=<location>
+  describe('GET /api/v1/businesses?location=<location>', () => {
+    // Gets all businesses filtered by location
+    it('Gets all businesses filtered by location', (done) => {
+      request.get('/api/v1/businesses?location=Kano')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this location', (done) => {
+      request.get('/api/v1/businesses?location=Lagos')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/businesses?category=<category>
+  describe('GET /api/v1/businesses?category=<category>', () => {
+    // Gets all businesses filtered by category
+    it('Gets all businesses filtered by cateory', (done) => {
+      request.get('/api/v1/businesses?category=drugs')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this category', (done) => {
+      request.get('/api/v1/businesses?category=education')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });  
+
+    // Testing for 'POST /api/v1/<userId>/businesses/<businessId>/reviews'
+  describe('POST /api/v1/<userId>/businesses/<businessId>/reviews', () => {
+    // Only authenticated users can review a business
+    it('Only authenticated users can review a business', (done) => {
+      request.post('/api/v1/3/businesses/1/reviews')
+        .send({
+          reviewBody: 'Cool business',
+        })
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.post('/api/v1/1/businesses/1/reviews')
+        .send({
+          reviewBody: 'Cool business',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Review content must be entered
+    it('Review content must be entered', (done) => {
+      request.post('/api/v1/1/businesses/2/reviews')
+        .send({})
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Review added to a business
+    it('Review added to a business', (done) => {
+      request.post('/api/v1/1/businesses/2/reviews')
+        .send({ reviewBody: 'Cool business', })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/businesses/<businessId>/reviews
+  describe('GET /api/v1/businesses/<businessId>/reviews', () => {
+    // Business does can not be found
+    it('Business does can not be found', (done) => {
+      request.get('/api/v1/businesses/1/reviews')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Gets all reviews from a business
+    it('Gets all reviews from a business', (done) => {
+      request.get('/api/v1/businesses/2/reviews')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+
+  
+});
