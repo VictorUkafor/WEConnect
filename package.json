@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --exec babel-node",
-    "test": "mocha --recursive --compilers js:babel-core/register --exit --timeout 20000",
+    "test": "mocha ./server/test/ --recursive --compilers js:babel-core/register --exit --timeout 20000",
     "eslint": "eslint --fix server"
   },
   "author": "Victor Ukafor",
