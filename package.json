@@ -11,6 +11,13 @@
   "author": "Victor Ukafor",
   "license": "ISC",
   "dependencies": {
+    "sequelize": "^4.36.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "jwt-simple": "^0.5.1",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
@@ -35,5 +42,19 @@
     "nodemon": "^1.17.1",
     "nyc": "^11.4.1",
     "supertest": "^3.0.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VictorUkafor/WEConnect.git"
+  },
+  "keywords": [
+    "weconnect"
+  ],
+  "bugs": {
+    "url": "https://github.com/VictorUkafor/WEConnect/issues"
+  },
+  "homepage": "https://github.com/VictorUkafor/WEConnect#readme"
 }
