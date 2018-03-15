@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --exec babel-node",
-    "test": "nyc --require babel-register --require babel-polyfill mocha --exit",
+    "test": "mocha --recursive --compilers js:babel-core/register --exit --timeout 20000",
     "eslint": "eslint --fix server"
   },
   "author": "Victor Ukafor",
@@ -32,7 +32,6 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "coveralls": "^3.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
