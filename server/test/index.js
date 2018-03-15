@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 import chai from 'chai';
-import app from '../index';
+import app from '../../index';
 
-const expect = chai.expect;
+const { expect } = chai;
 const request = supertest(app);
 
 
@@ -437,6 +437,48 @@ describe('WEConnect API Routes', () => {
         });
     });
   });
+
+  // Testing for GET /api/v1/businesses?location=<location>
+  describe('GET /api/v1/businesses?location=<location>', () => {
+    // Gets all businesses filtered by location
+    it('Gets all businesses filtered by location', (done) => {
+      request.get('/api/v1/businesses?location=Kano')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this location', (done) => {
+      request.get('/api/v1/businesses?location=Lagos')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/businesses?category=<category>
+  describe('GET /api/v1/businesses?category=<category>', () => {
+    // Gets all businesses filtered by category
+    it('Gets all businesses filtered by cateory', (done) => {
+      request.get('/api/v1/businesses?category=drugs')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this category', (done) => {
+      request.get('/api/v1/businesses?category=education')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });  
 
     // Testing for 'POST /api/v1/<userId>/businesses/<businessId>/reviews'
   describe('POST /api/v1/<userId>/businesses/<businessId>/reviews', () => {
