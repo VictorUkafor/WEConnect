@@ -1,2 +1,59 @@
-# WEConnect
-Andela Bootcamp Nigeria Cohort 30 Project -- WEConnect
+# Project title 
+
+WEConnect - This is app that provides a platform where business owners and users interact.
+WEConnect gives business owners the opportunity to advertise their businesses, so users can
+give feedback on the businesses they interacted with.
+
+
+# Motivation
+
+WEConnect gives business owners an avenue to improve on the marketing strategies.This improvement 
+will eventually lead to the growth of their businesses, which is want every businessman or 
+businesswoman.
+
+
+# Build status 
+
+
+# Code style
+
+
+# Screenshots
+
+
+# Code style
+
+
+# Tech/Frameworks used
+
+Built with
+
+      - Node/Express
+
+
+# Installation
+
+To get started with the app:
+
+   - clone it to your local machine
+   - cd to the root directory
+   - run 'npm install'
+   - start up the app by running 'npm start'
+   - go to 'localhost:7000' on your web browser to view the index page 
+
+
+# Author
+
+victor Ukafor 
+victorukafor@gmail.com
+
+
+# Acknowledgement
+
+Andela Talent Team 2018
+
+
+
+
+
+
