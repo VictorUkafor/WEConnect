@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --exec babel-node",
-    "test": "nyc mocha --exit --require babel-core/register",
+    "test": "nyc --require babel-register --require babel-polyfill mocha --exit",
+
     "eslint": "eslint --fix server"
   },
   "author": "Victor Ukafor",
