@@ -1,6 +1,5 @@
 coverage
 node_modules/
-.babelrc
 .eslintrc
 npm-debug.log
 .nyc_output/
