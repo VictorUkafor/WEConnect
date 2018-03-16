@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../index';
