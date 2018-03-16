@@ -13,7 +13,8 @@ businesswoman.
 
 
 # Build status 
-[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=master)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=master)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/maintainability)](https://codeclimate.com/github/VictorUkafor/WEConnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/test_coverage)](https://codeclimate.com/github/VictorUkafor/WEConnect/test_coverage)
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=011-server_create-get-filtered-reviews-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=011-server_create-get-filtered-reviews-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=011-server_create-get-filtered-reviews-api) 
+
 
 
 # Code style
