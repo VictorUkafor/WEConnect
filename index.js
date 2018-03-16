@@ -10,12 +10,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router(app);
-app.get('/', (req, res) => { res.send({ message: "You're welcome!" }); });
 
 if (!module.parent) {
-  app.listen(7000, () => {
-    // console.log('listening on port 7000:. . .');
-  });
+  app.listen(7000, () => {});
 }
 
 export default app;

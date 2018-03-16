@@ -8,7 +8,8 @@
     "test": "nyc --reporter=html --reporter=text mocha --exit --compilers js:babel-register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "eslint": "eslint --fix server"
+    "eslint": "eslint --fix server",
+    "showcoverage": "start coverage/lcov-report/index.html"
   },
   "author": "Victor Ukafor",
   "license": "ISC",
