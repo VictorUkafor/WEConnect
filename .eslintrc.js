@@ -4,6 +4,7 @@ module.exports = {
   "env": {
     "node": true,
     "es6": true,
+    "esversion": 6,
     "mocha": true
   },
   "rules": {
