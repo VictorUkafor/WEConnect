@@ -13,8 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router(app);
 app.get('/', (req, res) => {});
 
-if(!module.parent){
-	app.listen(port);
-}
+if(!module.parent){ app.listen(port); }
 
 export default app;
