@@ -39,8 +39,8 @@ describe('WEConnect API Routes', () => {
           description: 'Web provides digital solutions',
           categories: ['web design', 'web development'],
           productsOrServices: 'web developments, web designs',
-          location: 'Lagos',
-          address: 'Lagos',
+          location: 'Owerri',
+          address: 'Owerri',
         })
         .expect(201)
         .end((err) => {
@@ -246,6 +246,27 @@ describe('WEConnect API Routes', () => {
     it('Gets all reviews from a business', (done) => {
       request.get('/api/v1/businesses/2/reviews')
         .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+      // Testing for GET /api/v1/businesses?location=<location>
+  describe('GET /api/v1/businesses?location=<location>', () => {
+    // Gets all businesses filtered by location
+    it('Gets all businesses filtered by location', (done) => {
+      request.get('/api/v1/businesses?location=Lagos')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // There are no businesses with this location
+    it('There are no businesses with this location', (done) => {
+      request.get('/api/v1/businesses?location=Kwara')
+        .expect(404)
         .end((err) => {
           done(err);
         });
