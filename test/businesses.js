@@ -256,7 +256,7 @@ describe('WEConnect API Routes', () => {
   describe('GET /api/v1/businesses?location=<location>', () => {
     // Gets all businesses filtered by location
     it('Gets all businesses filtered by location', (done) => {
-      request.get('/api/v1/businesses?location=Lagos')
+      request.get('/api/v1/businesses?location=Owerri')
         .expect(200)
         .end((err) => {
           done(err);

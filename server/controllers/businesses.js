@@ -183,6 +183,7 @@ export default class BusinessesController {
 
   /**
    *  An API for getting all businesses
+   *  GET: /businesses?location=<location>
    *  GET: /businesses
    *  Takes 2 parameters
    *  @param {object} req the first parameter
@@ -193,6 +194,13 @@ export default class BusinessesController {
   getAllBusinesses(req, res) {
     if (this.businesses.length === 0) {
       res.status(404).send({ message: 'There are no businesses yet!' });
+    } else if (req.query.location) {
+      const businessesWithThisLocation = this.businesses.filter(b => b.location === req.query.location);
+      if (businessesWithThisLocation.length === 0) {
+        res.status(404).send({ message: 'There are no businesses with this location' });
+      } else {
+        res.status(200).send({ message: businessesWithThisLocation });
+      }
     } else {
       res.status(200).send({ message: ['All businesses', this.businesses] });
     }
