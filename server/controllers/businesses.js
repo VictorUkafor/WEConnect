@@ -3,7 +3,7 @@
   *  class AllController
   *
   */
-export default class UsersController {
+export default class BusinessesController {
 /**
   *  constructor
   *  Takes one parameter
