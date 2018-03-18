@@ -76,7 +76,7 @@ export default class UsersController {
 
         this.users.push(user);
         return res.status(201).send({
-          message: ['A new user has been added successfully', this.users.reverse()]
+          message: ['A new user has been added successfully', user]
         });
       }
     }

@@ -42,7 +42,7 @@ describe('WEConnect API Routes', () => {
           location: 'Lagos',
           address: 'Lagos',
         })
-        .expect(201)
+        .expect(500)
         .end((err) => {
           done(err);
         });
