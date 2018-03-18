@@ -25,6 +25,7 @@ export default class BusinessesController {
   registerRoutes() {
     this.router.post('/businesses', this.postBusiness.bind(this));
     this.router.put('/businesses/:businessId', this.updateBusiness.bind(this));
+    this.router.delete('/businesses/:businessId', this.removeBusiness.bind(this));
   }
 
   /**
@@ -129,6 +130,34 @@ export default class BusinessesController {
         });
     }
   }
+
+    /**
+   *  An API for removing a business
+   *  DELETE: /businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  removeBusiness(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToRemove = this.businesses.find(b => b.id === businessId);
+
+    if (!businessToRemove) {
+      res.status(404).send({
+        message: 'Business can not be found!'
+      });
+    } else {
+      this.businesses = this.businesses.filter(b => b.id !== businessId);
+
+      res.status(200).send({
+        message: ['Your business has been removed successfully', this.businesses]
+      });
+  }
+
+}
+
 
 }
 
