@@ -231,5 +231,26 @@ describe('WEConnect API Routes', () => {
     });
   });
 
+  // Testing for GET /api/v1/businesses/<businessId>/reviews
+  describe('GET /api/v1/businesses/<businessId>/reviews', () => {
+    // Business does can not be found
+    it('Business does can not be found', (done) => {
+      request.get('/api/v1/businesses/1/reviews')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Gets all reviews from a business
+    it('Gets all reviews from a business', (done) => {
+      request.get('/api/v1/businesses/2/reviews')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
 
 });
