@@ -111,5 +111,26 @@ describe('WEConnect API Routes', () => {
 
     });
 
+  // Testing for 'DELETE /api/v1/businesses/<businessId>'
+  describe('DELETE /api/v1/businesses/<businessId>', () => {
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.delete('/api/v1/businesses/4')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Deletes a business
+    it('Removes a business', (done) => {
+      request.delete('/api/v1/businesses/1')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
 
 });
