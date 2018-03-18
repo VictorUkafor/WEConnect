@@ -31,6 +31,23 @@ describe('WEConnect API Routes', () => {
         });
     });
 
+    // Adds another business
+    it('Adds another business', (done) => {
+      request.post('/api/v1/businesses')
+        .send({
+          businessName: 'VickCode Solutions',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
     // A business with this name has already been registered
     it('Business already exist', (done) => {
       request.post('/api/v1/businesses')
@@ -94,7 +111,7 @@ describe('WEConnect API Routes', () => {
 
     // Business can not be found
     it('Business can not be found', (done) => {
-      request.put('/api/v1/businesses/2')
+      request.put('/api/v1/businesses/4')
         .send({
           businessName: 'VickCode Solutions',
           description: 'Web provides digital solutions',
@@ -125,6 +142,27 @@ describe('WEConnect API Routes', () => {
     // Deletes a business
     it('Removes a business', (done) => {
       request.delete('/api/v1/businesses/1')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
+  // Testing for GET /api/v1/businesses
+  describe('GET /api/v1/businesses/<businessId>', () => {
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.get('/api/v1/businesses/1')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Gets a single business
+    it('Gets a single business', (done) => {
+      request.get('/api/v1/businesses/2')
         .expect(200)
         .end((err) => {
           done(err);
