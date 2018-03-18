@@ -73,4 +73,43 @@ describe('WEConnect API Routes', () => {
 
   });
 
+  // Testing for 'PUT /api/v1/businesses/<businessId>'
+  describe('PUT /api/v1/businesses/<businessId>', () => {
+    // Updates a business
+    it('Updates a business', (done) => {
+      request.put('/api/v1/businesses/1')
+        .send({
+          businessName: 'VickCode Technologies Limited',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Abuja',
+          address: 'Abuja',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Business can not be found
+    it('Only business owners can update their businesses', (done) => {
+      request.put('/api/v1/businesses/2')
+        .send({
+          businessName: 'VickCode Solutions',
+          description: 'Web provides digital solutions',
+          categories: ['web design', 'web development'],
+          productsOrServices: 'web developments, web designs',
+          location: 'Lagos',
+          address: 'Lagos',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    });
+
+
 });
