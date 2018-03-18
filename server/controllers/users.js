@@ -103,6 +103,5 @@ export default class UsersController {
       res.status(404).send({ message: 'Invalid email or password!' });
     }
   }
-
 }
 

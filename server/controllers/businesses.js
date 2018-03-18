@@ -24,6 +24,7 @@ export default class BusinessesController {
   */
   registerRoutes() {
     this.router.post('/businesses', this.postBusiness.bind(this));
+    this.router.put('/businesses/:businessId', this.updateBusiness.bind(this));
   }
 
   /**
@@ -57,35 +58,77 @@ export default class BusinessesController {
       });
 
       if (errors.length > 0) {
-          res.status(500).send({ message: errors });
-        } else if(regBusiness) {
-          res.status(500).send({ message: 'A business with this name has already been registered!' });
-        } else {
-          const id = this.businesses.length + 1;
-          const { businessName } = businessInfo;
-          const { description } = businessInfo;
-          const { categories } = businessInfo;
-          const { productsOrServices } = businessInfo;
-          const { location } = businessInfo;
-          const { address } = businessInfo;
-          const business = {
-            id,
-            businessName,
-            description,
-            categories,
-            productsOrServices,
-            location,
-            address
-          };
+        res.status(500).send({ message: errors });
+      } else if (regBusiness) {
+        res.status(500).send({ message: 'A business with this name has already been registered!' });
+      } else {
+        const id = this.businesses.length + 1;
+        const { businessName } = businessInfo;
+        const { description } = businessInfo;
+        const { categories } = businessInfo;
+        const { productsOrServices } = businessInfo;
+        const { location } = businessInfo;
+        const { address } = businessInfo;
+        const business = {
+          id,
+          businessName,
+          description,
+          categories,
+          productsOrServices,
+          location,
+          address
+        };
 
-          this.businesses.push(business);
-          return res.status(201).send({
-            message: ['A new business has been added successfully', business]
-          });
-        }
+        this.businesses.push(business);
+        return res.status(201).send({
+          message: ['A new business has been added successfully', business]
+        });
       }
-  }  
+    }
+  }
 
+  /**
+   *  An API for updating a business
+   *  PUT: /businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  updateBusiness(req, res) {
+    const { body: businessInfo } = req;
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToUpdate = this.businesses.find(b => b.id === businessId);
+
+    if (!businessToUpdate) {
+      res.status(404).send({
+        message: 'Business can not be found!'
+      });
+    } else {
+        businessToUpdate.businessName = businessInfo.businessName ?
+          businessInfo.businessName : businessToUpdate.businessName;
+
+        businessToUpdate.description = businessInfo.description ?
+          businessInfo.description : businessToUpdate.description;
+
+        businessToUpdate.categories = businessInfo.categories ?
+          businessInfo.categories : businessToUpdate.categories;
+
+        businessToUpdate.productsOrServices = businessInfo.productsOrServices ?
+          businessInfo.productsOrServices : businessToUpdate.businessName;
+
+        businessToUpdate.location = businessInfo.location ?
+          businessInfo.location : businessToUpdate.location;
+
+        businessToUpdate.address = businessInfo.address ?
+          businessInfo.address : businessToUpdate.address;
+
+        return res.status(201).send({
+          message: ['Your business has been updated successfully', businessToUpdate]
+        });
+    }
+  }
 
 }
 

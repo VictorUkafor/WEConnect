@@ -93,7 +93,7 @@ describe('WEConnect API Routes', () => {
     });
 
     // Business can not be found
-    it('Only business owners can update their businesses', (done) => {
+    it('Business can not be found', (done) => {
       request.put('/api/v1/businesses/2')
         .send({
           businessName: 'VickCode Solutions',
