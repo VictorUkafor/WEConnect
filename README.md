@@ -14,7 +14,7 @@ businesswoman.
 
 # Build status 
 
-[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(010-template-server_create-signup-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=011-server_create-get-filtered-reviews-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=(010-template-server_create-signup-api)
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(016-template-server_create-get-all-businesses-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=016-template-server_create-get-all-businesses-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=(016-template-server_create-get-all-businesses-api)
 
 
 # Tech/Frameworks used
