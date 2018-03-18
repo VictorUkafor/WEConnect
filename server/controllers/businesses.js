@@ -27,6 +27,7 @@ export default class BusinessesController {
     this.router.put('/businesses/:businessId', this.updateBusiness.bind(this));
     this.router.delete('/businesses/:businessId', this.removeBusiness.bind(this));
     this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
+    this.router.get('/businesses', this.getAllBusinesses.bind(this));
   }
 
   /**
@@ -175,6 +176,23 @@ export default class BusinessesController {
     if (!businessToGet) {
       res.status(404).send({ message: 'Business can not be found!' });
     } else { res.status(200).send({ message: businessToGet }); }
+  }
+
+  /**
+   *  An API for getting all businesses
+   *  GET: /businesses
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getAllBusinesses(req, res) {
+    if (this.businesses.length === 0) {
+      res.status(404).send({ message: 'There are no businesses yet!' });
+    } else {
+      res.status(200).send({ message: ['All businesses', this.businesses] });
+    }
   }
 
 
