@@ -184,6 +184,7 @@ export default class BusinessesController {
   /**
    *  An API for getting all businesses
    *  GET: /businesses?location=<location>
+   *  GET: /businesses?category=<category>
    *  GET: /businesses
    *  Takes 2 parameters
    *  @param {object} req the first parameter
@@ -200,6 +201,14 @@ export default class BusinessesController {
         res.status(404).send({ message: 'There are no businesses with this location' });
       } else {
         res.status(200).send({ message: businessesWithThisLocation });
+      }
+    } else if (req.query.category) {
+      const businessesWithThisCategory =
+      this.businesses.filter(b => b.categories.indexOf(req.query.category) > -1);
+      if (businessesWithThisCategory.length === 0) {
+        res.status(404).send({ message: 'There are no businesses with this category' });
+      } else {
+        res.status(200).send({ message: businessesWithThisCategory });
       }
     } else {
       res.status(200).send({ message: ['All businesses', this.businesses] });
