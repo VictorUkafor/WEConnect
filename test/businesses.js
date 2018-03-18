@@ -190,5 +190,46 @@ describe('WEConnect API Routes', () => {
     });
   });
 
+    // Testing for 'POST /api/v1/businesses/<businessId>/reviews'
+  describe('POST /api/v1/businesses/<businessId>/reviews', () => {
+    // Business can not be found
+    it('Business can not be found', (done) => {
+      request.post('/api/v1/businesses/1/reviews')
+        .send({
+          name: 'Victor Ukafor',
+          email: 'victorukafor@gmail.com',
+          reviewContent: 'Cool business',
+        })
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // All fields must be filled
+    it('All fields must be filled', (done) => {
+      request.post('/api/v1/businesses/2/reviews')
+        .send({})
+        .expect(500)
+        .end((err) => {
+          done(err);
+        });
+    });
+
+    // Review added to a business
+    it('Review added to a business', (done) => {
+      request.post('/api/v1/businesses/2/reviews')
+        .send({
+          name: 'Victor Ukafor',
+          email: 'victorukafor@gmail.com',
+          reviewContent: 'Cool business',
+        })
+        .expect(201)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+
 
 });
