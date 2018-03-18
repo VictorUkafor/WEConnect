@@ -26,6 +26,7 @@ export default class BusinessesController {
     this.router.post('/businesses', this.postBusiness.bind(this));
     this.router.put('/businesses/:businessId', this.updateBusiness.bind(this));
     this.router.delete('/businesses/:businessId', this.removeBusiness.bind(this));
+    this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
   }
 
   /**
@@ -157,6 +158,24 @@ export default class BusinessesController {
   }
 
 }
+
+  /**
+   *  An API for getting a single business
+   *  GET: /businesses/<businessId>
+   *  Takes 2 parameters
+   *  @param {object} req the first parameter
+   *  @param  {object} res the second parameter
+   *
+   *  @returns {object} return an object
+   */
+  getBusiness(req, res) {
+    const businessId = parseInt(req.params.businessId, 10);
+    const businessToGet = this.businesses.find(b => b.id === businessId);
+
+    if (!businessToGet) {
+      res.status(404).send({ message: 'Business can not be found!' });
+    } else { res.status(200).send({ message: businessToGet }); }
+  }
 
 
 }
