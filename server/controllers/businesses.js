@@ -1,4 +1,4 @@
-
+import uuid from 'uuid';
 /**
   *  class AllController
   *
@@ -234,7 +234,7 @@ export default class BusinessesController {
       res.status(500).send({ message: errors });
     } else {
 
-      const id = this.reviews.length + 1; 
+      const id = uuid.v4(); 
       const { name } = reviewInfo;
       const { email } = reviewInfo;
       const { reviewContent }  = reviewInfo;
