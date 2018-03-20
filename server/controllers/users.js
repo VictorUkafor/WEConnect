@@ -5,26 +5,9 @@ import uuid from 'uuid';
   *
   */
 export default class UsersController {
-/**
-  *  constructor
-  *  Takes one parameter
-  *  @param {object} router the first parameter
-  *
-  */
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
+
+  constructor() {
     this.users = [];
-  }
-
-
-  /**
-  *  contains routes for all APIs
-  *  @returns {object} return an object
-  *
-  */
-  registerRoutes() {
-    this.router.post('/auth/signup', this.postUser.bind(this));
   }
 
   /** An API for adding a new user:
@@ -35,8 +18,8 @@ export default class UsersController {
   *
   *  @returns {object} return an object
   */
-  postUser(req, res) {
-    const { body: userInfo } = req;
+  static postUser(req, res) {
+    const userInfo = req.body;
     const errors = [];
     const reqEmail = this.users.find(u => u.email === userInfo.email);
 
@@ -49,7 +32,7 @@ export default class UsersController {
     };
 
     if (!Object.keys(userInfo).length > 0) {
-      res.status(500).send({
+      res.status(412).send({
         message: 'All fields are required!'
       });
     } else {
@@ -58,11 +41,9 @@ export default class UsersController {
       });
 
       if (errors.length > 0) {
-        res.status(500).send({ message: errors });
-      } else if (userInfo.password !== userInfo.confirm_password) {
-        res.status(500).send({ message: 'Your password did not match!' });
+        res.status(412).send({ message: errors });
       } else if (reqEmail) {
-        res.status(500).send({ message: 'The user with this email has already been registered!' });
+        res.status(403).send({ message: 'The user with this email has already been registered!' });
       } else {
         const id = uuid.v4();
         const { firstName } = userInfo;
@@ -80,6 +61,5 @@ export default class UsersController {
       }
     }
   }
-
 }
 

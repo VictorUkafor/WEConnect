@@ -10,8 +10,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-router(app);
-app.get('/', (req, res) => {});
+//router(app);
+app.use('/api/v1', router);
+
 
 app.listen(port); 
 
