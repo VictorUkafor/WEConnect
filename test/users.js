@@ -48,23 +48,7 @@ describe('WEConnect API Routes', () => {
     it('All fields are required', (done) => {
       request.post('/api/v1/auth/signup')
         .send({})
-        .expect(500)
-        .end((err) => {
-          done(err);
-        });
-    });
-
-    // Password did not match
-    it('Password did not match', (done) => {
-      request.post('/api/v1/auth/signup')
-        .send({
-          firstName: 'Victor',
-          lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
-          password: 'password',
-          confirm_password: 'password1',
-        })
-        .expect(500)
+        .expect(412)
         .end((err) => {
           done(err);
         });
@@ -80,7 +64,7 @@ describe('WEConnect API Routes', () => {
           password: 'password',
           confirm_password: 'password',
         })
-        .expect(500)
+        .expect(403)
         .end((err) => {
           done(err);
         });

@@ -18,8 +18,8 @@ export default class UsersController {
   *
   *  @returns {object} return an object
   */
-  static postUser(req, res) {
-    const userInfo = req.body;
+  postUser(req, res) {
+    const { body: userInfo } = req;
     const errors = [];
     const reqEmail = this.users.find(u => u.email === userInfo.email);
 
@@ -42,7 +42,7 @@ export default class UsersController {
 
       if (errors.length > 0) {
         res.status(412).send({ message: errors });
-      } else if (reqEmail) {
+      }  else if (reqEmail) {
         res.status(403).send({ message: 'The user with this email has already been registered!' });
       } else {
         const id = uuid.v4();
