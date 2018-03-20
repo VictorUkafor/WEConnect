@@ -9,4 +9,6 @@ before_script:
 script:
 - npm test
 - npm run coverage
-after_success: npm run coverall
+after_success: 
+- npm run coverall
+- CODECLIMATE_REPO_TOKEN=b729a52c9f0043851be5959660caa546a33a9bb1c86cf90088f61fd2b191ecea codeclimate-test-reporter < ./coverage/lcov.info
