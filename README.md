@@ -14,7 +14,8 @@ businesswoman.
 
 # Build status 
 
-[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(020-template-server_create-get-businesses-filtered-by-category-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=020-template-server_create-get-businesses-filtered-by-category-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=(020-template-server_create-get-businesses-filtered-by-category-api)
+
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=021-template-server-2_create-signup-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=021-template-server-2_create-signup-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=021-template-server-2_create-signup-api) [![Maintainability](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/maintainability)](https://codeclimate.com/github/VictorUkafor/WEConnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/test_coverage)](https://codeclimate.com/github/VictorUkafor/WEConnect/test_coverage)
 
 
 # Tech/Frameworks used

@@ -14,9 +14,12 @@
   "author": "Victor Ukafor",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.0",
     "morgan": "^1.9.0",
+    "sequelize": "^4.36.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

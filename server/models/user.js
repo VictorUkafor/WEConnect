@@ -2,19 +2,32 @@ export default (sequelize, DataTypes) => {
 	const User = sequelize.define('User', {
 		firstName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			validate: {
+				isAlpha: true,
+				notEmpty: true
+			},
 		},
+
 		lastName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			validate: {
+				isAlpha: true,
+				notEmpty: true
+			},
 		},
 		email: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			validate: {
+				isEmail: true,
+				notEmpty: true
+			},
 		},
 	    password: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			validate: {
+				notEmpty: true,
+				min: 5,
+			},
 		},
 	});
 
