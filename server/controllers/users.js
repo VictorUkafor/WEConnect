@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import models from '../models';
 const User = models.User;
 
@@ -11,12 +12,13 @@ export default {
 },
 
 create(req, res) {
+  const hashedPassword = bcrypt.hashSync(req.body.password, 8);   
   return User
     .create({
       firstName : req.body.firstName, 
       lastName : req.body.lastName,
       email : req.body.email,
-      password : req.body.password
+      password : hashedPassword
     })
     .then(user => res.status(201).send(user))
     .catch(error => res.status(400).send(error));

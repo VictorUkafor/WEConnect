@@ -5,7 +5,8 @@
       "database": "weconnect_db",
       "host": "127.0.0.1",
       "port": 5433,
-      "dialect": "postgres"
+      "dialect": "postgres",
+      "secret": "wec£21rt4!!hASWM&"
     },
     "test": {
       "username": "root",
