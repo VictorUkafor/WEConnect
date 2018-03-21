@@ -1,0 +1,26 @@
+{
+    "development": {
+      "username": "postgres",
+      "password": "success4me",
+      "database": "weconnect_db",
+      "host": "127.0.0.1",
+      "port": 5433,
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": "root",
+      "password": "success4me",
+      "database": "weconnect_test",
+      "host": "127.0.0.1",
+      "port": 5433,
+      "dialect": "postgres"
+    },
+    "production": {
+      "username": "root",
+      "password": "success4me",
+      "database": "database_production",
+      "host": "127.0.0.1",
+      "port": 5433,
+      "dialect": "postgres"
+    }
+  }
