@@ -1,15 +1,17 @@
+import sequelize from 'sequelize';
+import models from '../server/models';
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../index';
 
+const User = models.User;
+const Business = models.Business;
 const expect = chai.expect;
 const request = supertest(app);
 
 
 describe('WEConnect API Routes', () => {
-  beforeEach((done) => {
-  // before each route
-    done();
+  before((done) => {
   });
 
 
@@ -28,7 +30,7 @@ describe('WEConnect API Routes', () => {
 
   // Testing for 'POST /api/v1/auth/signup'
   describe('POST /api/v1/auth/signup', () => {
-  Adds a user successfully
+  //Adds a user successfully
     it('Adds a new user', (done) => {
       request.post('/api/v1/auth/signup')
         .send({
