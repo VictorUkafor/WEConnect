@@ -19,7 +19,7 @@ export default (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			validate: {
 				isEmail: true,
-				notEmpty: true
+				notEmpty: true,
 			},
 		},
 	    password: {

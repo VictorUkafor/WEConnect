@@ -28,13 +28,13 @@ describe('WEConnect API Routes', () => {
 
   // Testing for 'POST /api/v1/auth/signup'
   describe('POST /api/v1/auth/signup', () => {
-  // Adds a user successfully
+  Adds a user successfully
     it('Adds a new user', (done) => {
       request.post('/api/v1/auth/signup')
         .send({
           firstName: 'Victor',
           lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
+          email: 'ukafor@gmail.com',
           password: 'password',
         })
         .expect(201)

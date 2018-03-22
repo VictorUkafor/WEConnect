@@ -21,9 +21,9 @@ export default class AuthController {
     });
 
     if (!Object.keys(userInfo).length > 0) {
-      res.status(405).send({message: 'All fields are required!'});
+      return res.status(405).send({message: 'All fields are required!'});
     } else if (errors.length > 0) {
-      res.status(405).send({ message: errors });
+      return res.status(405).send({ message: errors });
     }
   
     next(); 
@@ -34,11 +34,12 @@ export default class AuthController {
     
     User.findOne({ where: {email: userInfo.email} }).then(user => {
       if(user){
-        res.status(406).send({message: "An account has already been created with this email"});
+       return res.status(406).send({message: "An account has already been created with this email"});
       }
+     
     })
     
-    next(); 
+    return next(); 
   }
 
 

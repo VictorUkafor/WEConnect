@@ -6,8 +6,8 @@ import AuthController from '../controllers/middlewares';
 
 // route for signup api endpoint	
 apiRouter.post('/auth/signup', 
+AuthController.checksIfUserExist,
 AuthController.checksForRequiredFields, 
-AuthController.checksIfUserExist, 
 UsersController.postUser);
 
 
