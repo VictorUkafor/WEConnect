@@ -1,15 +1,17 @@
+import sequelize from 'sequelize';
+import models from '../server/models';
 import supertest from 'supertest';
 import chai from 'chai';
 import app from '../index';
 
+const User = models.User;
+const Business = models.Business;
 const expect = chai.expect;
 const request = supertest(app);
 
 
 describe('WEConnect API Routes', () => {
-  beforeEach((done) => {
-  // before each route
-    done();
+  before((done) => {
   });
 
 
@@ -28,15 +30,14 @@ describe('WEConnect API Routes', () => {
 
   // Testing for 'POST /api/v1/auth/signup'
   describe('POST /api/v1/auth/signup', () => {
-  // Adds a user successfully
+  //Adds a user successfully
     it('Adds a new user', (done) => {
       request.post('/api/v1/auth/signup')
         .send({
           firstName: 'Victor',
           lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
+          email: 'ukafor@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
         .expect(201)
         .end((err) => {
@@ -48,23 +49,7 @@ describe('WEConnect API Routes', () => {
     it('All fields are required', (done) => {
       request.post('/api/v1/auth/signup')
         .send({})
-        .expect(500)
-        .end((err) => {
-          done(err);
-        });
-    });
-
-    // Password did not match
-    it('Password did not match', (done) => {
-      request.post('/api/v1/auth/signup')
-        .send({
-          firstName: 'Victor',
-          lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
-          password: 'password',
-          confirm_password: 'password1',
-        })
-        .expect(500)
+        .expect(405)
         .end((err) => {
           done(err);
         });
@@ -78,65 +63,64 @@ describe('WEConnect API Routes', () => {
           lastName: 'Ukafor',
           email: 'victorukafor@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
-        .expect(500)
+        .expect(406)
         .end((err) => {
           done(err);
         });
     });
   });
 
-  // Testing for 'POST /api/v1/auth/login'
-  describe('POST /api/v1/auth/login', () => {
-    // logs in a user successfully
-    it('Logs a user into the app successfully', (done) => {
-      request.post('/api/v1/auth/login')
-        .send({
-          email: 'victorukafor@gmail.com',
-          password: 'password',
-        })
-        .expect(201)
-        .end((err) => {
-          done(err);
-        });
-    });
+  // // Testing for 'POST /api/v1/auth/login'
+  // describe('POST /api/v1/auth/login', () => {
+  //   // logs in a user successfully
+  //   it('Logs a user into the app successfully', (done) => {
+  //     request.post('/api/v1/auth/login')
+  //       .send({
+  //         email: 'victorukafor@gmail.com',
+  //         password: 'password',
+  //       })
+  //       .expect(201)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
 
-    // both fields are required
-    it('Both fields are required', (done) => {
-      request.post('/api/v1/auth/login')
-        .send({})
-        .expect(500)
-        .end((err) => {
-          done(err);
-        });
-    });
+  //   // both fields are required
+  //   it('Both fields are required', (done) => {
+  //     request.post('/api/v1/auth/login')
+  //       .send({})
+  //       .expect(500)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
 
-    // invalid email or password
-    it('Invalid email or password', (done) => {
-      request.post('/api/v1/auth/login')
-        .send({
-          email: 'victorukafor@gmail.com1',
-          password: 'password',
-        })
-        .expect(404)
-        .end((err) => {
-          done(err);
-        });
-    });
+  //   // invalid email or password
+  //   it('Invalid email or password', (done) => {
+  //     request.post('/api/v1/auth/login')
+  //       .send({
+  //         email: 'victorukafor@gmail.com1',
+  //         password: 'password',
+  //       })
+  //       .expect(404)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
 
-    // invalid email or password
-    it('Invalid email or password', (done) => {
-      request.post('/api/v1/auth/login')
-        .send({
-          email: 'victorukafor@gmail.com',
-          password: 'password1',
-        })
-        .expect(404)
-        .end((err) => {
-          done(err);
-        });
-    });
-  });
+  //   // invalid email or password
+  //   it('Invalid email or password', (done) => {
+  //     request.post('/api/v1/auth/login')
+  //       .send({
+  //         email: 'victorukafor@gmail.com',
+  //         password: 'password1',
+  //       })
+  //       .expect(404)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
+  // });
 
 });
