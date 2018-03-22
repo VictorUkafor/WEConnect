@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import models from '../models';
+
 const User = models.User;
 
-
 export default class UsersController {
-
+  
 static postUser(req, res) {
   const hashedPassword = bcrypt.hashSync(req.body.password, 8);
   const { body: userInfo } = req;

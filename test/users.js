@@ -36,7 +36,6 @@ describe('WEConnect API Routes', () => {
           lastName: 'Ukafor',
           email: 'victorukafor@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
         .expect(201)
         .end((err) => {
@@ -48,7 +47,7 @@ describe('WEConnect API Routes', () => {
     it('All fields are required', (done) => {
       request.post('/api/v1/auth/signup')
         .send({})
-        .expect(500)
+        .expect(405)
         .end((err) => {
           done(err);
         });
@@ -62,9 +61,8 @@ describe('WEConnect API Routes', () => {
           lastName: 'Ukafor',
           email: 'victorukafor@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
-        .expect(500)
+        .expect(406)
         .end((err) => {
           done(err);
         });
