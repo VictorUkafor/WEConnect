@@ -1,36 +1,30 @@
-# Project Title #
+# Project title 
 
-WEConnect(Template) - This is the template of an app that gives business owners 
-the opportunity to upload their businesses' profiles online, so users can write 
-reviews on the business they interacted with.
-
-
-# Getting Started #
-
-To get started with the project, download the ZIP file or clone it to your local
- machine.
+WEConnect - This is app that provides a platform where business owners and users interact.
+WEConnect gives business owners the opportunity to advertise their businesses, so users can
+give feedback on the businesses they interacted with.
 
 
-# Prerequisites #
+# Motivation
 
-The only requirement needed to preview this template is an internet browser. 
-You don't need to an internet connection.
-
-
-# Installing and Running #
-
-To preview this template:
-
-1.  Open the cloned directory
-
-2.  Go to template subfolder
-
-3.  Open the index.html with an Internet Browser
-
-4. Hurray! the template is live.
+WEConnect gives business owners an avenue to improve on the marketing strategies.This improvement 
+will eventually lead to the growth of their businesses, which is want every businessman or 
+businesswoman.
 
 
-# Built With #
+# Build status 
+
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=020-template-server_create-get-businesses-filtered-by-category-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=020-template-server_create-get-businesses-filtered-by-category-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=020-template-server_create-get-businesses-filtered-by-category-api) [![Maintainability](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/maintainability)](https://codeclimate.com/github/VictorUkafor/WEConnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/test_coverage)](https://codeclimate.com/github/VictorUkafor/WEConnect/test_coverage)
+
+
+# Tech/Frameworks used
+
+Built with
+
+      - Node/Express
+
+
+Template built with
 
 1. HTML
 
@@ -41,16 +35,37 @@ To preview this template:
 4. Twitter Boostrap
 
 
-# Author #
+# Installation
 
-Victor Ukafor 
+To view the template:
+
+1.  Open the cloned directory
+
+2.  Go to template subfolder
+
+3.  Open the index.html with an Internet Browser
+
+4. Hurray! the template is live.
+
+
+To get started with the app:
+
+   - clone it to your local machine
+   - cd to the root directory
+   - run 'npm install'
+   - start up the app by running 'npm start'
+   - go to 'localhost:7000' on your web browser to view the index page 
+
+
+# Author
+
+victor Ukafor 
 victorukafor@gmail.com
 
 
-# Acknowledgement #
+# Acknowledgement
 
-Andela Talent Team
-
+Andela Talent Team 2018
 
 
 
