@@ -1,4 +1,5 @@
 import express from 'express';
+import AuthController from '../controllers/middlewares';
 import UsersController from '../controllers/users';
 import BusinessesController from '../controllers/businesses';
 
@@ -8,8 +9,18 @@ apiRouter.get('/', (req, res) => res.status(200).send({
     message: 'Welcome to the WEConnect app!',
 }));
 
-apiRouter.post('/auth/signup', UsersController.postUser);
-apiRouter.post('/auth/login', UsersController.loginUser);
+apiRouter.post(
+    '/auth/signup',
+    AuthController.checksForRequiredFields,
+    AuthController.checksIfUserExist,
+    UsersController.postUser
+  );
+  
+  apiRouter.post(
+    '/auth/login',
+    UsersController.loginUser
+  );
+  
 
 apiRouter.post('/businesses', BusinessesController.postBusiness);
 apiRouter.put('/businesses/:businessId', BusinessesController.updateBusiness);
