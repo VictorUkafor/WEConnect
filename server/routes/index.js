@@ -3,10 +3,20 @@ import UsersController from '../controllers/users';
 import BusinessesController from '../controllers/businesses';
 
 const apiRouter = express.Router();
-const usersController = new UsersController(apiRouter);
-const businessesController = new BusinessesController(apiRouter);
 
-export default (app) => {
-  app.get('/api/v1', (req, res) => res.status(200).send({ message: 'Welcome to the WEConnect app!' }));
-  app.use('/api/v1', apiRouter);
-};
+apiRouter.get('/', (req, res) => res.status(200).send({
+    message: 'Welcome to the WEConnect app!',
+}));
+
+apiRouter.post('/auth/signup', UsersController.postUser);
+apiRouter.post('/auth/login', UsersController.loginUser);
+
+apiRouter.post('/businesses', BusinessesController.postBusiness);
+apiRouter.put('/businesses/:businessId', BusinessesController.updateBusiness);
+apiRouter.delete('/businesses/:businessId', BusinessesController.removeBusiness);
+apiRouter.get('/businesses/:businessId', BusinessesController.getBusiness);
+apiRouter.get('/businesses', BusinessesController.getAllBusinesses);
+apiRouter.post('/businesses/:businessId/reviews', BusinessesController.postReview);
+apiRouter.get('/businesses/:businessId/reviews', BusinessesController.getReviews);
+
+export default apiRouter;

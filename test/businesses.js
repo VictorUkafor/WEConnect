@@ -5,7 +5,6 @@ import app from '../index';
 const expect = chai.expect;
 const request = supertest(app);
 
-
 describe('WEConnect API Routes', () => {
   beforeEach((done) => {
   // before each route

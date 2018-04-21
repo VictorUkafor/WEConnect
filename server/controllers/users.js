@@ -1,45 +1,13 @@
 
 import uuid from 'uuid';
-/**
-  *  class AllController
-  *
-  */
+const users = [];
+
 export default class UsersController {
-/**
-  *  constructor
-  *  Takes one parameter
-  *  @param {object} router the first parameter
-  *
-  */
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
-    this.users = [];
-  }
 
-
-  /**
-  *  contains routes for all APIs
-  *  @returns {object} return an object
-  *
-  */
-  registerRoutes() {
-    this.router.post('/auth/signup', this.postUser.bind(this));
-    this.router.post('/auth/login', this.loginUser.bind(this));
-  }
-
-  /** An API for adding a new user:
-  *  POST: /auth/signup
-  *  Takes 2 parameters
-  *  @param {object} req the first parameter
-  *  @param  {object} res the second parameter
-  *
-  *  @returns {object} return an object
-  */
-  postUser(req, res) {
+  static postUser(req, res) {
     const { body: userInfo } = req;
     const errors = [];
-    const regUser = this.users.find(u => u.email === userInfo.email);
+    const regUser = users.find(u => u.email === userInfo.email);
 
     const userFields = {
       firstName: 'The First Name field is required',
@@ -74,7 +42,7 @@ export default class UsersController {
           id, firstName, lastName, email, password,
         };
 
-        this.users.push(user);
+        users.push(user);
         return res.status(201).send({
           message: ['A new user has been added successfully', user]
         });
@@ -82,18 +50,9 @@ export default class UsersController {
     }
   }
 
-  /**
-   *  An API for logging into the app
-   *  POST: /auth/login
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  loginUser(req, res) {
+  static loginUser(req, res) {
     const { body: userInfo } = req;
-    const validate = this.users.find(user => user.email === userInfo.email);
+    const validate = users.find(user => user.email === userInfo.email);
 
     if (Object.keys(userInfo).length !== 2) {
       res.status(500).send({ message: 'All fields are required!' });

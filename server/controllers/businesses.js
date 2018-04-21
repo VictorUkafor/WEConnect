@@ -1,51 +1,14 @@
 import uuid from 'uuid';
-/**
-  *  class AllController
-  *
-  */
+
+let businesses = [];
+let reviews = [];
+
 export default class BusinessesController {
-/**
-  *  constructor
-  *  Takes one parameter
-  *  @param {object} router the first parameter
-  *
-  */
-  constructor(router) {
-    this.router = router;
-    this.registerRoutes();
-    this.businesses = [];
-    this.reviews = [];
-  }
 
-
-  /**
-  *  contains routes for all APIs
-  *  @returns {object} return an object
-  *
-  */
-  registerRoutes() {
-    this.router.post('/businesses', this.postBusiness.bind(this));
-    this.router.put('/businesses/:businessId', this.updateBusiness.bind(this));
-    this.router.delete('/businesses/:businessId', this.removeBusiness.bind(this));
-    this.router.get('/businesses/:businessId', this.getBusiness.bind(this));
-    this.router.get('/businesses', this.getAllBusinesses.bind(this));
-    this.router.post('/businesses/:businessId/reviews', this.postReview.bind(this));
-    this.router.get('/businesses/:businessId/reviews', this.getReviews.bind(this));
-  }
-
-  /**
-   *  An API for adding a business
-   *  POST: /businesses
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  postBusiness(req, res) {
+  static postBusiness(req, res) {
     const { body: businessInfo } = req;
     const errors = [];
-    const regBusiness = this.businesses.find(b => b.businessName === businessInfo.businessName);
+    const regBusiness = businesses.find(b => b.businessName === businessInfo.businessName);
 
     const businessFields = {
       businessName: 'The Name of the Business is required',
@@ -68,7 +31,7 @@ export default class BusinessesController {
       } else if (regBusiness) {
         res.status(500).send({ message: 'A business with this name has already been registered!' });
       } else {
-        const id = this.businesses.length + 1;
+        const id = businesses.length + 1;
         const { businessName } = businessInfo;
         const { description } = businessInfo;
         const { categories } = businessInfo;
@@ -85,7 +48,7 @@ export default class BusinessesController {
           address
         };
 
-        this.businesses.push(business);
+        businesses.push(business);
         return res.status(201).send({
           message: ['A new business has been added successfully', business]
         });
@@ -93,19 +56,11 @@ export default class BusinessesController {
     }
   }
 
-  /**
-   *  An API for updating a business
-   *  PUT: /businesses/<businessId>
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  updateBusiness(req, res) {
+  
+  static updateBusiness(req, res) {
     const { body: businessInfo } = req;
     const businessId = parseInt(req.params.businessId, 10);
-    const businessToUpdate = this.businesses.find(b => b.id === businessId);
+    const businessToUpdate = businesses.find(b => b.id === businessId);
 
     if (!businessToUpdate) {
       res.status(404).send({
@@ -136,67 +91,41 @@ export default class BusinessesController {
     }
   }
 
-    /**
-   *  An API for removing a business
-   *  DELETE: /businesses/<businessId>
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  removeBusiness(req, res) {
+
+  static removeBusiness(req, res) {
     const businessId = parseInt(req.params.businessId, 10);
-    const businessToRemove = this.businesses.find(b => b.id === businessId);
+    const businessToRemove = businesses.find(b => b.id === businessId);
 
     if (!businessToRemove) {
       res.status(404).send({
         message: 'Business can not be found!'
       });
     } else {
-      this.businesses = this.businesses.filter(b => b.id !== businessId);
+      businesses = businesses.filter(b => b.id !== businessId);
 
       res.status(200).send({
-        message: ['Your business has been removed successfully', this.businesses]
+        message: ['Your business has been removed successfully', businesses]
       });
   }
 
 }
 
-  /**
-   *  An API for getting a single business
-   *  GET: /businesses/<businessId>
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  getBusiness(req, res) {
+
+  static getBusiness(req, res) {
     const businessId = parseInt(req.params.businessId, 10);
-    const businessToGet = this.businesses.find(b => b.id === businessId);
+    const businessToGet = businesses.find(b => b.id === businessId);
 
     if (!businessToGet) {
       res.status(404).send({ message: 'Business can not be found!' });
     } else { res.status(200).send({ message: businessToGet }); }
   }
 
-  /**
-   *  An API for getting all businesses
-   *  GET: /businesses?location=<location>
-   *  GET: /businesses?category=<category>
-   *  GET: /businesses
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  getAllBusinesses(req, res) {
-    if (this.businesses.length === 0) {
+
+  static getAllBusinesses(req, res) {
+    if (businesses.length === 0) {
       res.status(404).send({ message: 'There are no businesses yet!' });
     } else if (req.query.location) {
-      const businessesWithThisLocation = this.businesses.filter(b => b.location === req.query.location);
+      const businessesWithThisLocation = businesses.filter(b => b.location === req.query.location);
       if (businessesWithThisLocation.length === 0) {
         res.status(404).send({ message: 'There are no businesses with this location' });
       } else {
@@ -204,30 +133,21 @@ export default class BusinessesController {
       }
     } else if (req.query.category) {
       const businessesWithThisCategory =
-      this.businesses.filter(b => b.categories.indexOf(req.query.category) > -1);
+      businesses.filter(b => b.categories.indexOf(req.query.category) > -1);
       if (businessesWithThisCategory.length === 0) {
         res.status(404).send({ message: 'There are no businesses with this category' });
       } else {
         res.status(200).send({ message: businessesWithThisCategory });
       }
     } else {
-      res.status(200).send({ message: ['All businesses', this.businesses] });
+      res.status(200).send({ message: ['All businesses', businesses] });
     }
   }
 
- /**
-   *  An API for adding a review to a business
-   *  POST: /businesses/<businessId>/reviews
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  postReview(req, res) {
+  static postReview(req, res) {
     const reviewInfo = req.body;
     const businessId = parseInt(req.params.businessId, 10);
-    const businessToPost = this.businesses.find(b => b.id === businessId);
+    const businessToPost = businesses.find(b => b.id === businessId);
     const errors = [];
 
     const reviewFields = {
@@ -260,27 +180,18 @@ export default class BusinessesController {
         id, businessId, name, email, reviewContent,
       };
 
-      this.reviews.push(review);
-      const singleBusinessReview = this.reviews.filter(r => r.businessId === businessId);
+      reviews.push(review);
+      const singleBusinessReview = reviews.filter(r => r.businessId === businessId);
       return res.status(201).send({
         message: ['Review added successfully', singleBusinessReview]
       });
     }
   }
 
-  /**
-   *  An API for getting reviews of a business
-   *  GET: /businesses/<businessId>/reviews
-   *  Takes 2 parameters
-   *  @param {object} req the first parameter
-   *  @param  {object} res the second parameter
-   *
-   *  @returns {object} return an object
-   */
-  getReviews(req, res) {
+  static getReviews(req, res) {
     const businessId = parseInt(req.params.businessId, 10);
-    const businessToReview = this.businesses.find(b => b.id === businessId);
-    const singleBusinessReviews = this.reviews.filter(r => r.businessId === businessId);
+    const businessToReview = businesses.find(b => b.id === businessId);
+    const singleBusinessReviews = reviews.filter(r => r.businessId === businessId);
 
     if (!businessToReview) {
       res.status(404).send({ message: 'Business can not be found!' });
