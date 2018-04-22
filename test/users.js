@@ -1,15 +1,24 @@
+import bcrypt from 'bcryptjs';
 import supertest from 'supertest';
-import chai from 'chai';
 import app from '../index';
+import { expect } from 'chai';
+import { User } from '../server/models';
 
-const expect = chai.expect;
-const request = supertest(app);
+const request = supertest(app);  
 
 
 describe('WEConnect API Routes', () => {
+  const salt = bcrypt.genSaltSync(10);
+  const encryptedPassword = bcrypt.hashSync("password", salt);
   beforeEach((done) => {
-  // before each route
-    done();
+    User.destroy({where: {}})
+    .then(() => User.create({
+      firstName: "Victor",
+      lastName: "Ukafor",
+      email: "victorukafor@gmail.com",
+      password: encryptedPassword
+    })) 
+    .then(() => done());
   });
 
 
@@ -28,15 +37,14 @@ describe('WEConnect API Routes', () => {
 
   // Testing for 'POST /api/v1/auth/signup'
   describe('POST /api/v1/auth/signup', () => {
-  // Adds a user successfully
+  //Adds a user successfully
     it('Adds a new user', (done) => {
       request.post('/api/v1/auth/signup')
         .send({
-          firstName: 'Victor',
-          lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
+          firstName: 'Samuel',
+          lastName: 'David',
+          email: 'samueldavid1@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
         .expect(201)
         .end((err) => {
@@ -44,27 +52,12 @@ describe('WEConnect API Routes', () => {
         });
     });
 
+
     // All fields are required
     it('All fields are required', (done) => {
       request.post('/api/v1/auth/signup')
         .send({})
-        .expect(500)
-        .end((err) => {
-          done(err);
-        });
-    });
-
-    // Password did not match
-    it('Password did not match', (done) => {
-      request.post('/api/v1/auth/signup')
-        .send({
-          firstName: 'Victor',
-          lastName: 'Ukafor',
-          email: 'victorukafor@gmail.com',
-          password: 'password',
-          confirm_password: 'password1',
-        })
-        .expect(500)
+        .expect(400)
         .end((err) => {
           done(err);
         });
@@ -78,13 +71,13 @@ describe('WEConnect API Routes', () => {
           lastName: 'Ukafor',
           email: 'victorukafor@gmail.com',
           password: 'password',
-          confirm_password: 'password',
         })
-        .expect(500)
+        .expect(400)
         .end((err) => {
           done(err);
         });
     });
+
   });
 
   // Testing for 'POST /api/v1/auth/login'
@@ -96,7 +89,7 @@ describe('WEConnect API Routes', () => {
           email: 'victorukafor@gmail.com',
           password: 'password',
         })
-        .expect(201)
+        .expect(200)
         .end((err) => {
           done(err);
         });
@@ -106,7 +99,7 @@ describe('WEConnect API Routes', () => {
     it('Both fields are required', (done) => {
       request.post('/api/v1/auth/login')
         .send({})
-        .expect(500)
+        .expect(400)
         .end((err) => {
           done(err);
         });
@@ -136,7 +129,8 @@ describe('WEConnect API Routes', () => {
         .end((err) => {
           done(err);
         });
-    });
+    });   
+
   });
 
 });
