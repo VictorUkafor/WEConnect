@@ -36,10 +36,11 @@ describe('WEConnect API Routes', () => {
           })); 
         });
       });
-   
+
+      
   // Testing for 'POST /api/v1/businesses
   describe('POST /api/v1/businesses', () => {
-    // Add a new business
+    // Adds a new business
     it('Adds a new business', (done) => {
       request.post('/api/v1/businesses')
       .set('x-access-token', token)
@@ -86,15 +87,19 @@ describe('WEConnect API Routes', () => {
         });
     });
 
-    // Required fields must be filled
-    it('Required fields must be filled', (done) => {
+    // User not registered
+    it('User not registered', (done) => {
       request.post('/api/v1/businesses')
-      .set('x-access-token', token)
+      .set('x-access-token', "tes312wqv")
         .send({
-          productsOrServices: 'web developments, web designs',
+          businessName: "VickCode Co-operatives Ltd",
+          description: "We provide insurance solutions",
+          categories: ['insurance'],
+          productsOrServices: 'car, household',
           location: 'Lagos',
+          address: 'Lagos',
         })
-        .expect(400)
+        .expect(500)
         .end((err) => {
           done(err);
         });
@@ -206,88 +211,48 @@ describe('WEConnect API Routes', () => {
     });
   });
 
-  //   // Testing for 'POST /api/v1/businesses/<businessId>/reviews'
-  // describe('POST /api/v1/businesses/<businessId>/reviews', () => {
-  //   // Business can not be found
-  //   it('Business can not be found', (done) => {
-  //     request.post('/api/v1/businesses/1/reviews')
-  //       .send({
-  //         name: 'Victor Ukafor',
-  //         email: 'victorukafor@gmail.com',
-  //         reviewContent: 'Cool business',
-  //       })
-  //       .expect(404)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
 
-  //   // All fields must be filled
-  //   it('All fields must be filled', (done) => {
-  //     request.post('/api/v1/businesses/2/reviews')
-  //       .send({})
-  //       .expect(412)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
+  // Testing for GET /api/v1/businesses?category=<category>
+  describe('GET /api/v1/businesses?category=<category>', () => {
+    // Gets all businesses filtered by category
+    it('Gets all businesses filtered by category', (done) => {
+      request.get('/api/v1/businesses?category=insurance')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
 
-  //   // Review added to a business
-  //   it('Review added to a business', (done) => {
-  //     request.post('/api/v1/businesses/2/reviews')
-  //       .send({
-  //         name: 'Victor Ukafor',
-  //         email: 'victorukafor@gmail.com',
-  //         reviewContent: 'Cool business',
-  //       })
-  //       .expect(201)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
-  // });
+    // There are no businesses with this category
+    it('There are no businesses with this category', (done) => {
+      request.get('/api/v1/businesses?category=game')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
 
-  // // Testing for GET /api/v1/businesses/<businessId>/reviews
-  // describe('GET /api/v1/businesses/<businessId>/reviews', () => {
-  //   // Business does can not be found
-  //   it('Business does can not be found', (done) => {
-  //     request.get('/api/v1/businesses/1/reviews')
-  //       .expect(404)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
+      // Testing for GET /api/v1/businesses?location=<location>
+  describe('GET /api/v1/businesses?location=<location>', () => {
+    // Gets all businesses filtered by location
+    it('Gets all businesses filtered by location', (done) => {
+      request.get('/api/v1/businesses?location=Lagos')
+        .expect(200)
+        .end((err) => {
+          done(err);
+        });
+    });
 
-  //   // Gets all reviews from a business
-  //   it('Gets all reviews from a business', (done) => {
-  //     request.get('/api/v1/businesses/2/reviews')
-  //       .expect(200)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
-  // });
-
-  //     // Testing for GET /api/v1/businesses?location=<location>
-  // describe('GET /api/v1/businesses?location=<location>', () => {
-  //   // Gets all businesses filtered by location
-  //   it('Gets all businesses filtered by location', (done) => {
-  //     request.get('/api/v1/businesses?location=Owerri')
-  //       .expect(200)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
-
-  //   // There are no businesses with this location
-  //   it('There are no businesses with this location', (done) => {
-  //     request.get('/api/v1/businesses?location=Kwara')
-  //       .expect(404)
-  //       .end((err) => {
-  //         done(err);
-  //       });
-  //   });
-  // });
-
+    // There are no businesses with this location
+    it('There are no businesses with this location', (done) => {
+      request.get('/api/v1/businesses?location=Kwara')
+        .expect(404)
+        .end((err) => {
+          done(err);
+        });
+    });
+  });
+  
 
 });

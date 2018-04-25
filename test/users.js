@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import supertest from 'supertest';
 import app from '../index';
@@ -10,6 +11,7 @@ const request = supertest(app);
 describe('WEConnect API Routes', () => {
   const salt = bcrypt.genSaltSync(10);
   const encryptedPassword = bcrypt.hashSync("password", salt);
+  let token;
   beforeEach((done) => {
     User.destroy({where: {}})
     .then(() => User.create({
@@ -17,8 +19,10 @@ describe('WEConnect API Routes', () => {
       lastName: "Ukafor",
       email: "victorukafor@gmail.com",
       password: encryptedPassword
-    })) 
-    .then(() => done());
+    })).then(user => { 
+      token = jwt.sign({id: user.id }, app.get('lockAndKeys'), { expiresIn: 60 * 60 });
+      done();
+      }); 
   });
 
 
@@ -53,7 +57,7 @@ describe('WEConnect API Routes', () => {
     });
 
 
-    // All fields are required
+    // Required fields must be filled
     it('All fields are required', (done) => {
       request.post('/api/v1/auth/signup')
         .send({})
@@ -132,5 +136,66 @@ describe('WEConnect API Routes', () => {
     });   
 
   });
+
+
+  // // Testing for 'GET /api/v1/user'
+  // describe('GET /api/v1/user', () => {
+  //   // Get user details
+  //   it('Get user details', (done) => {
+  //     request.get('/api/v1/user')
+  //     .set('x-access-token', token)
+  //       .expect(200)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
+
+
+  //   // User not authenticated
+  //   it('User not authenticated', (done) => {
+  //     request.get('/api/v1/user')
+  //     .set('x-access-token', 'qwecdq')
+  //       .expect(500)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });    
+
+  // });
+  
+  
+  // // Testing for 'PUT /api/v1/user'
+  // describe('PUT /api/v1/user', () => {
+  //   // Update user details
+  //   it('Update user details', (done) => {
+  //     request.put('/api/v1/user')
+  //     .set('x-access-token', token)
+  //     .send({
+  //       firstName: 'Andrew',
+  //       lastName: 'Kelvin',
+  //     })      
+  //       .expect(201)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });
+
+
+  //   // User not authenticated
+  //   it('User not authenticated', (done) => {
+  //     request.put('/api/v1/user')
+  //     .set('x-access-token', 'er123qscx')
+  //     .send({
+  //       firstName: 'Andrew',
+  //       lastName: 'Kelvin',
+  //     })      
+  //       .expect(500)
+  //       .end((err) => {
+  //         done(err);
+  //       });
+  //   });    
+
+  // });   
+
 
 });

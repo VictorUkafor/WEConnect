@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import app from '../../index';
-import { User, Business } from '../models';
+import { User, Business, Review } from '../models';
 
 
 export default class AuthController {
@@ -77,7 +77,7 @@ export default class AuthController {
 
     Business.findOne({
       where: { id: businessId },
-      //include: [{ model: Review, as: 'businessReviews', }],
+      include: [{ model: Review, as: 'reviews', }],
     }).then((business) => {
       if (!business) {
         res.status(404).send({ message: 'Business can not be found!' });
@@ -94,7 +94,7 @@ export default class AuthController {
 
     Business.findOne({
       where: { id: businessId },
-      //include: [{ model: Review, as: 'businessReviews', }]
+      include: [{ model: Review, as: 'reviews', }]
     }).then((business) => {
       if (!business) {
         res.status(404).send({ message: 'This business does not exist!' });

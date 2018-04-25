@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Business.associate = (models) => {
+    Business.hasMany(models.Review, {
+      foreignKey: 'businessId',
+      as: 'reviews',
+    });
+
     Business.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',

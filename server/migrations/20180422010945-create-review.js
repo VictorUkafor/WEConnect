@@ -1,32 +1,22 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Businesses', {
+    queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      businessName: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      description: {
+      email: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      categories: {
+      reviewBody: {
         allowNull: false,
-        type: Sequelize.ARRAY(Sequelize.STRING)
-      },
-      productsOrServices: {
-        type: Sequelize.STRING
-      },
-      location: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      address: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -37,15 +27,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      userId: {
+      businessId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'Businesses',
           key: 'id',
-          as: 'userId',
+          as: 'businessId',
         },
       },
     }),
-  down: queryInterface => queryInterface.dropTable('Businesses'),
+  down: queryInterface => queryInterface.dropTable('Reviews'),
 };

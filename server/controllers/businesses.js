@@ -1,4 +1,4 @@
-import { Business } from '../models';
+import { Business, Review } from '../models';
 
 
 export default class BusinessesController {
@@ -9,15 +9,14 @@ export default class BusinessesController {
       userId: req.user.id,
       businessName: businessInfo.businessName,
       description: businessInfo.description,
-      categories: businessInfo.categories,
       productsOrServices: businessInfo.productsOrServices,
+      categories: businessInfo.categories,
       location: businessInfo.location,
       address: businessInfo.address
     }).then(business => res.status(201).send({
       message: ['A new business has been added successfully', business]
     })).catch(error => res.status(500));
   }
-
 
   static updateBusiness(req, res) {
     const { body: businessInfo } = req;
@@ -37,23 +36,11 @@ export default class BusinessesController {
   }
 
   static removeBusiness(req, res) {
-    // Review.findAll({ where: { businessId: req.business.id } })
-    //   .then((reviews) => {
-    //     if (reviews) {
-    //       Review.destroy({ where: { businessId: req.business.id } });
-    //       req.business.destroy().then(() => {
-    //         res.status(200).send({
-    //           message: 'This business has been deleted successfully'
-    //         });
-    //       }).catch((error) => { res.status(500); });
-    //     } else {
-          req.business.destroy().then(() => {
-            res.status(200).send({
-              message: 'This business has been deleted successfully'
-            });
-          }).catch((error) => { res.status(500); });
-      //   }
-      // });
+    req.business.destroy().then(() => {
+      res.status(200).send({
+        message: 'This business has been deleted successfully'
+      });
+    }).catch((error) => { res.status(500); });
   }
 
   static getBusiness(req, res) {
@@ -61,7 +48,7 @@ export default class BusinessesController {
 
     Business.findOne({
       where: { id: businessId },
-//include: [{ model: Review, as: 'businessReviews', }],
+      include: [{ model: Review, as: 'reviews', }],
     }).then((business) => {
       if (!business) {
         res.status(404).send({ message: 'This business can not be found!' });
@@ -71,12 +58,11 @@ export default class BusinessesController {
     });
   }
 
-
   static getAllBusinesses(req, res) {
     if (req.query.location) {
       Business.findAll({
         where: { location: req.query.location },
-        //include: [{ model: Review, as: 'businessReviews', }],
+        include: [{ model: Review, as: 'reviews', }],
       }).then((businesses) => {
         if (businesses.length > 0) {
           res.status(200).send(businesses);
@@ -85,9 +71,9 @@ export default class BusinessesController {
         }
       });
     } else if (req.query.category) {
-      Business.findAll({ 
-        //include: [{ model: Review, as: 'businessReviews', }]
-       }).then((businesses) => {
+      Business.findAll({
+        include: [{ model: Review, as: 'reviews', }]
+      }).then((businesses) => {
         if (businesses.length) {
           const businessesWithThisCategory = [];
           for (const business of businesses) {
@@ -106,9 +92,9 @@ export default class BusinessesController {
         }
       });
     } else {
-      Business.findAll({ 
-        //include: [{ model: Review, as: 'businessReviews', }]
-       }).then((businesses) => {
+      Business.findAll({
+        include: [{ model: Review, as: 'reviews', }]
+      }).then((businesses) => {
         if (!businesses) {
           res.status(404).send({ message: 'There are no businesses yet!' });
         } else {
