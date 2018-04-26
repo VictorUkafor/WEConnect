@@ -3,8 +3,8 @@ module.exports = {
     queryInterface.createTable('Businesses', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
       businessName: {
