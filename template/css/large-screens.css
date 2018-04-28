@@ -1,0 +1,17 @@
+@media screen and (min-width:1440px){
+    
+    .thumbnail-single>a>img{
+        width:106%;
+    }
+    
+    .search-sort{
+        width: 98%;
+        margin-left: 0.9%;
+    }
+    
+    .profile2{
+        margin-left: 4%;
+    }
+
+
+}

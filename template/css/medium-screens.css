@@ -1,0 +1,46 @@
+@media screen and (min-width:1280px){
+
+    .thumbnail-section{
+        margin-left: 0.3%;
+    }
+    
+    .signin-form{
+        margin-left: 40%;
+    }
+    
+    .thumbnail-single{
+        margin-bottom: 30px;
+    }
+    
+    .thumbnail-single>a>img{
+        width:106.8%;                                                                                                                                                                                                                                                                                                                                                                      
+        margin-bottom: 10px;
+        
+    }
+                                               
+    .thumbnail-single p {                                          
+       font-size:16px;
+        line-height:21px;
+        color:black;
+        width:92%;
+        margin-left:4%;
+        margin-top:5px;
+    }
+    
+    .thumbnail-single h1{
+        padding-left: 7%;                                                                                                                                                                                                                                                                                                         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffftttffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffext-align:center;
+        width:86%;
+        font-size:18px;
+        line-height:22px;                                 
+    }
+    
+    .search-sort{
+        width: 98.5%;
+        margin-left: 0.7%;
+    }
+    
+    .profile2{
+        margin-left: 3%;
+    }
+
+}
