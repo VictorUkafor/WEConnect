@@ -5,7 +5,6 @@ import sequelize from 'sequelize';
 import swaggerUi from 'swagger-ui-express';
 import apiRouter from './server/routes/index';
 import dbConfig from './server/config/config';
-import db from './server/models/index';
 import swaggerDocument from './swagger.json';
 
 const config = dbConfig[process.env.NODE_ENV] || dbConfig['development'];
@@ -20,6 +19,5 @@ app.use('/api/v1', apiRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 if (!module.parent){ app.listen(port); }
-
 
 export default app;

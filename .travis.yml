@@ -6,6 +6,7 @@ global:
 - export NODE_ENV=test
 before_script:
 - npm install
+- psql -c 'create database travis_c_test;' -U postgres
 script:
 - npm test
 - npm run coveralls
