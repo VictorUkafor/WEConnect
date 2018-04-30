@@ -3,13 +3,13 @@
  *
  * @author  Victor Ukafor
  * @requires  NPM:jsonwebtoken
- * @requires  NPM:bcryptjs
+ * @requires  NPM:bcrypt
  * @version 1.0.0
  *
  */
 
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import { User } from '../models';
 import app from '../../index';
 

@@ -42,7 +42,7 @@ export default class ReviewsController {
    * @returns {object} the review object
    */
   static getReviews(req, res) {
-  const businessId = parseInt(req.params.businessId, 10);
+    const businessId = parseInt(req.params.businessId, 10);
 
     Review.findAll({ where: { businessId } }).then((reviews) => {
       if (reviews.length === 0) {

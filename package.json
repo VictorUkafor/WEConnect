@@ -17,7 +17,7 @@
     "jsonwebtoken": "^8.2.0",
     "morgan": "^1.9.0",
     "sequelize": "^4.36.0",
-    "swagger-ui-express": "^2.0.15",
+    "swagger-ui-express": "^2.0.15"
   },
   "devDependencies": {    
     "airbnb-browser-shims": "^2.1.0",
