@@ -7,16 +7,48 @@
  *
  */
 
-
-import jwt from 'jsonwebtoken';
-import app from '../../index';
-import { User, Business, Review } from '../models';
-
 /**
  * A class to represents middlewares controller
  * @class
  */
 export default class AuthController {
+  /**
+   * @constructor
+   * @param {object} User
+   * @param {object} Business
+   * @param {object} Review
+   * @param {object} jwt
+   * @param {object} config
+   */
+  constructor(User, Business, Review, jwt, config) {
+    this.User = User;
+    this.Business = Business;
+    this.Review = Review;
+    this.jwt = jwt;
+    this.config = config;
+    this.checksIfUserIsAuthenticated = this.checksIfUserIsAuthenticated.bind(this);
+    this.checksForRequiredUserFields = this.checksForRequiredUserFields.bind(this);
+    this.checksIfUserExist = this.checksIfUserExist.bind(this);
+    this.checksIfBusinessAlreadyExist = this.checksIfBusinessAlreadyExist.bind(this);
+    this.checksIfBusinessExist = this.checksIfBusinessExist.bind(this);
+    this.checksIfBusinessBelongsToUser = this.checksIfBusinessBelongsToUser.bind(this);
+    this.checksForRequiredBusinessFields = this.checksForRequiredBusinessFields.bind(this);
+    this.userErrors = [];
+    this.businessErrors = [];
+    this.userFields = {
+      firstName: 'The First Name field is required',
+      lastName: 'The Last Name field is required',
+      email: 'The Email field is required',
+      password: 'The Password field is required',
+    };
+    this.businessFields = {
+      businessName: 'The Business Name field is required',
+      description: 'The Description field is required',
+      categories: 'The Categories field is required',
+      location: 'The Location field is required',
+    };
+  }
+
   /**
    * Takes req and res to return the user object
    * @param {object} req the request object
@@ -24,7 +56,7 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the user object
    */
-  static checksIfUserIsAuthenticated(req, res, next) {
+  checksIfUserIsAuthenticated(req, res, next) {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     if (!token) {
@@ -32,20 +64,18 @@ export default class AuthController {
         authenticated: false, message: 'Token not found!'
       });
     }
-    jwt.verify(token, app.get('lockAndKeys'), (err, authenticated) => {
+    this.jwt.verify(token, this.config.secret, (err, authenticated) => {
       if (!authenticated) {
         return res.status(500).send({
           authenticated: false, message: 'You are not registered user!'
         });
       }
-      User.findOne({
+      this.User.findOne({
         where: { id: authenticated.id },
-        include: [{ model: Business, as: 'businesses', }]
+        include: [{ model: this.Business, as: 'businesses', }]
       }).then((user) => {
         if (!user) {
-          return res.status(404).send({
-            message: 'User can not be found!'
-          });
+          return res.status(404).send({ message: 'User can not be found!' });
         }
         req.user = user;
         next();
@@ -60,29 +90,13 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the business object
    */
-  static checksForRequiredFields(req, res, next) {
-    const { body: userInfo } = req;
-    const errors = [];
-
-    const requiredFields = {
-      firstName: 'The First Name field is required',
-      lastName: 'The Last Name field is required',
-      email: 'The Email field is required',
-      password: 'The Password field is required',
-    };
-
-    Object.keys(requiredFields).forEach((field) => {
-      if (!userInfo[field]) { errors.push(requiredFields[field]); }
+  checksForRequiredUserFields(req, res, next) {
+    Object.keys(this.userFields).forEach((field) => {
+      if (!req.body[field]) { this.userErrors.push(this.userFields[field]); }
     });
 
-    if (!Object.keys(userInfo).length > 0) {
-      return res.status(400).send({
-        message: 'All fields are required!'
-      });
-    } else if (errors.length > 0) {
-      return res.status(400).send({
-        message: errors
-      });
+    if (this.userErrors.length > 0) {
+      return res.status(400).send({ message: this.userErrors });
     }
     next();
   }
@@ -94,8 +108,8 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the user object
    */
-  static checksIfUserExist(req, res, next) {
-    User.findOne({ where: { email: req.body.email } }).then((user) => {
+  checksIfUserExist(req, res, next) {
+    this.User.findOne({ where: { email: req.body.email } }).then((user) => {
       if (user) {
         return res.status(400).send({
           message: 'An account has already been created with this email'
@@ -112,8 +126,8 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the business object
    */
-  static checksIfBusinessAlreadyExist(req, res, next) {
-    Business.findOne({ where: { businessName: req.body.businessName } }).then((business) => {
+  checksIfBusinessAlreadyExist(req, res, next) {
+    this.Business.findOne({ where: { businessName: req.body.businessName } }).then((business) => {
       if (business) {
         return res.status(400).send({
           message: 'A business with this name has been registered already'
@@ -130,12 +144,12 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the business object
    */
-  static checksIfBusinessExist(req, res, next) {
+  checksIfBusinessExist(req, res, next) {
     const businessId = parseInt(req.params.businessId, 10);
 
-    Business.findOne({
+    this.Business.findOne({
       where: { id: businessId },
-      include: [{ model: Review, as: 'reviews', }],
+      include: [{ model: this.Review, as: 'reviews', }],
     }).then((business) => {
       if (!business) {
         return res.status(404).send({
@@ -154,12 +168,12 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the business object
    */
-  static checksIfBusinessBelongsToUser(req, res, next) {
+  checksIfBusinessBelongsToUser(req, res, next) {
     const businessId = parseInt(req.params.businessId, 10);
 
-    Business.findOne({
+    this.Business.findOne({
       where: { id: businessId },
-      include: [{ model: Review, as: 'reviews', }]
+      include: [{ model: this.Review, as: 'reviews', }]
     }).then((business) => {
       if (!business) {
         return res.status(404).send({
@@ -182,27 +196,13 @@ export default class AuthController {
    * @param {object} next the next object
    * @returns {object} the business object
    */
-  static requiredBusinessFields(req, res, next) {
-    const { body: businessInfo } = req;
-    const errors = [];
-
-    const requiredFields = {
-      businessName: 'The Name of the Business is required',
-      description: 'The Business description is required',
-      location: 'The Location field is required',
-      categories: 'You must select atleast one category',
-    };
-
-    Object.keys(requiredFields).forEach((field) => {
-      if (!businessInfo[field]) { errors.push(requiredFields[field]); }
+  checksForRequiredBusinessFields(req, res, next) {
+    Object.keys(this.businessFields).forEach((field) => {
+      if (!req.body[field]) { this.businessErrors.push(this.businessFields[field]); }
     });
 
-    if (!Object.keys(businessInfo).length > 0) {
-      return res.status(400).send({
-        message: 'All fields are required!'
-      });
-    } else if (errors.length > 0) {
-      res.status(400).send({ message: errors });
+    if (this.businessErrors.length > 0) {
+      res.status(400).send({ message: this.businessErrors });
     }
     next();
   }

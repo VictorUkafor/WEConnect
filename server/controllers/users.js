@@ -8,10 +8,6 @@
  *
  */
 
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import { User } from '../models';
-import app from '../../index';
 
 /**
  * A class to represents users controller
@@ -19,25 +15,21 @@ import app from '../../index';
  */
 export default class UsersController {
   /**
-   * Takes req and res to return the user object
-   * @param {object} req the request object
-   * @param {object} res the response object
-   * @returns {object} the user object
+   * @constructor
+   * @param {object} User
+   * @param {object} bcrypt
+   * @param {object} jwt
+   * @param {object} config
    */
-  static postUser(req, res) {
-    const { body: userInfo } = req;
-    const salt = bcrypt.genSaltSync(10);
-
-    User.create({
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      email: userInfo.email,
-      password: bcrypt.hashSync(userInfo.password, salt),
-    }).then((user) => {
-      const token = jwt.sign({ id: user.id }, app.get('lockAndKeys'), { expiresIn: 60 * 60 });
-      res.status(201).send({ user, authenticated: true, token });
-    }).catch(() => res.status(500));
+  constructor(User, bcrypt, jwt, config) {
+    this.User = User;
+    this.bcrypt = bcrypt;
+    this.jwt = jwt;
+    this.config = config;
+    this.postUser = this.postUser.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
+
 
   /**
    * Takes req and res to return the user object
@@ -45,19 +37,41 @@ export default class UsersController {
    * @param {object} res the response object
    * @returns {object} the user object
    */
-  static loginUser(req, res) {
+  postUser(req, res) {
+    const { body: userInfo } = req;
+    const salt = this.bcrypt.genSaltSync(10);
+
+    this.User.create({
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      email: userInfo.email,
+      password: this.bcrypt.hashSync(userInfo.password, salt),
+    }).then((user) => {
+      const token = this.jwt.sign({ id: user.id }, this.config.secret, { expiresIn: 60 * 60 });
+      res.status(201).send({ user, authenticated: true, token });
+    }).catch(() => res.status(500));
+  }
+
+
+  /**
+   * Takes req and res to return the user object
+   * @param {object} req the request object
+   * @param {object} res the response object
+   * @returns {object} the user object
+   */
+  loginUser(req, res) {
     const { body: userInfo } = req;
 
     if (userInfo.email && userInfo.password) {
-      User.findOne({ where: { email: userInfo.email } }).then((user) => {
+      this.User.findOne({ where: { email: userInfo.email } }).then((user) => {
         if (!user) {
           return res.status(404).send({
             message: 'Invalid email or password!'
           });
-        } else if (!bcrypt.compareSync(userInfo.password, user.password)) {
+        } else if (!this.bcrypt.compareSync(userInfo.password, user.password)) {
           return res.status(404).send({ message: 'Invalid email or password!' });
         } else if (user) {
-          const token = jwt.sign({ id: user.id }, app.get('lockAndKeys'), { expiresIn: 60 * 60 });
+          const token = this.jwt.sign({ id: user.id }, this.config.secret, { expiresIn: 60 * 60 });
 
           return res.status(200).send({
             message: `Welcome! ${user.firstName} ${user.lastName}`,
@@ -93,7 +107,6 @@ export default class UsersController {
 //       }
 //     });
 //   }
-
 
 //   static updateUserDetails(req, res) {
 //     req.user.update({

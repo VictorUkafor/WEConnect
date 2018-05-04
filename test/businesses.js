@@ -4,7 +4,9 @@ import supertest from 'supertest';
 import app from '../index';
 import { expect } from 'chai';
 import { User, Business } from '../server/models';
+import dbConfig from '../server/config/config';
 
+const config = dbConfig[process.env.NODE_ENV] || dbConfig['test'];
 const request = supertest(app);
 
 describe('WEConnect API Routes', () => {
@@ -31,7 +33,7 @@ describe('WEConnect API Routes', () => {
          userId: user.id,
         }).then(business => { 
           fakeBusiness = business;
-          token = jwt.sign({id: user.id }, app.get('lockAndKeys'), { expiresIn: 60 * 60 });
+          token = jwt.sign({id: user.id }, config.secret, { expiresIn: 60 * 60 });
           done();
           })); 
         });

@@ -1,10 +1,19 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { User, Business, Review, } from '../models';
 import AuthController from '../controllers/middlewares';
 import UsersController from '../controllers/users';
 import BusinessesController from '../controllers/businesses';
 import ReviewsController from '../controllers/reviews';
+import dbConfig from '../config/config';
 
+const config = dbConfig[process.env.NODE_ENV] || dbConfig.development;
 const apiRouter = express.Router();
+const usersController = new UsersController(User, bcrypt, jwt, config);
+const businessesController = new BusinessesController(Business, Review);
+const reviewsController = new ReviewsController(Review);
+const authController = new AuthController(User, Business, Review, jwt, config);
 
 apiRouter.get('/', (req, res) => res.status(200).send({
   message: 'Welcome to the WEConnect app!',
@@ -12,14 +21,14 @@ apiRouter.get('/', (req, res) => res.status(200).send({
 
 apiRouter.post(
   '/auth/signup',
-  AuthController.checksForRequiredFields,
-  AuthController.checksIfUserExist,
-  UsersController.postUser
+  authController.checksForRequiredUserFields,
+  authController.checksIfUserExist,
+  usersController.postUser
 );
 
 apiRouter.post(
   '/auth/login',
-  UsersController.loginUser
+  usersController.loginUser
 );
 
 // apiRouter.get(
@@ -36,47 +45,47 @@ apiRouter.post(
 
 apiRouter.post(
   '/businesses',
-  AuthController.checksIfUserIsAuthenticated,
-  AuthController.requiredBusinessFields,
-  AuthController.checksIfBusinessAlreadyExist,
-  BusinessesController.postBusiness
+  authController.checksIfUserIsAuthenticated,
+  authController.checksForRequiredBusinessFields,
+  authController.checksIfBusinessAlreadyExist,
+  businessesController.postBusiness
 );
 
 apiRouter.put(
   '/businesses/:businessId',
-  AuthController.checksIfUserIsAuthenticated,
-  AuthController.checksIfBusinessBelongsToUser,
-  BusinessesController.updateBusiness
+  authController.checksIfUserIsAuthenticated,
+  authController.checksIfBusinessBelongsToUser,
+  businessesController.updateBusiness
 );
 
 apiRouter.delete(
   '/businesses/:businessId',
-  AuthController.checksIfUserIsAuthenticated,
-  AuthController.checksIfBusinessBelongsToUser,
-  BusinessesController.removeBusiness
+  authController.checksIfUserIsAuthenticated,
+  authController.checksIfBusinessBelongsToUser,
+  businessesController.removeBusiness
 );
 
 apiRouter.get(
   '/businesses/:businessId',
-  BusinessesController.getBusiness
+  businessesController.getBusiness
 );
 
 apiRouter.get(
   '/businesses',
-  BusinessesController.getAllBusinesses
+  businessesController.getAllBusinesses
 );
 
 apiRouter.post(
   '/businesses/:businessId/reviews',
-  AuthController.checksIfUserIsAuthenticated,
-  AuthController.checksIfBusinessExist,
-  ReviewsController.postReview
+  authController.checksIfUserIsAuthenticated,
+  authController.checksIfBusinessExist,
+  reviewsController.postReview
 );
 
 apiRouter.get(
   '/businesses/:businessId/reviews',
-  AuthController.checksIfBusinessExist,
-  ReviewsController.getReviews
+  authController.checksIfBusinessExist,
+  reviewsController.getReviews
 );
 
 export default apiRouter;

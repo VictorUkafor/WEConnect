@@ -4,9 +4,10 @@ import supertest from 'supertest';
 import app from '../index';
 import { expect } from 'chai';
 import { User } from '../server/models';
+import dbConfig from '../server/config/config';
 
-const request = supertest(app);  
-
+const config = dbConfig[process.env.NODE_ENV] || dbConfig['test'];
+const request = supertest(app);
 
 describe('WEConnect API Routes', () => {
   const salt = bcrypt.genSaltSync(10);
@@ -20,7 +21,7 @@ describe('WEConnect API Routes', () => {
       email: "victorukafor@gmail.com",
       password: encryptedPassword
     })).then(user => { 
-      token = jwt.sign({id: user.id }, app.get('lockAndKeys'), { expiresIn: 60 * 60 });
+      token = jwt.sign({id: user.id }, config.secret, { expiresIn: 60 * 60 });
       done();
       }); 
   });
