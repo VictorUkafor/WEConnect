@@ -14,7 +14,17 @@ businesswoman.
 
 # Build status 
 
-[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=021-template-server-2_switching_from_dummy_data_to_real)](https://coveralls.io/github/VictorUkafor/WEConnect)
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)]
+(https://travis-ci.org/VictorUkafor/WEConnect)
+
+[![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)]
+(https://coveralls.io/github/VictorUkafor/WEConnect)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/maintainability)]
+(https://codeclimate.com/github/VictorUkafor/WEConnect/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/test_coverage)]
+(https://codeclimate.com/github/VictorUkafor/WEConnect/test_coverage)
 
 
 # Tech/Frameworks used
