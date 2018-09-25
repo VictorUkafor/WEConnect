@@ -1,7 +1,7 @@
 # Project title 
 
 WEConnect - This is app that provides a platform where business owners and users interact.
-WEConnect gives business owners the opportunity to advertise their businesses, so users can
+WEConnect gives business owners the opportunity to advertise their , so users can
 give feedback on the businesses they interacted with.
 
 
@@ -14,7 +14,7 @@ businesswoman.
 
 # Build status 
 
-[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)]
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)
 (https://travis-ci.org/VictorUkafor/WEConnect)
 
 [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=(021-template-server-2_switching_from_dummy_data_to_real)]
@@ -52,6 +52,7 @@ To view the template:
 1.  Open the cloned directory
 
 2.  Go to template subfolder
+[![Build Status](https://travis-ci.org/VictorUkafor/WEConnect.svg?branch=020-template-server_create-get-businesses-filtered-by-category-api)](https://travis-ci.org/VictorUkafor/WEConnect) [![Coverage Status](https://coveralls.io/repos/github/VictorUkafor/WEConnect/badge.svg?branch=020-template-server_create-get-businesses-filtered-by-category-api)](https://coveralls.io/github/VictorUkafor/WEConnect?branch=020-template-server_create-get-businesses-filtered-by-category-api) [![Maintainability](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/maintainability)](https://codeclimate.com/github/VictorUkafor/WEConnect/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/283b864bd5cba4dc4c6a/test_coverage)](https://codeclimate.com/github/VictorUkafor/WEConnect/test_coverage)
 
 3.  Open the index.html with an Internet Browser
 
